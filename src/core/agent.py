@@ -26,7 +26,7 @@ SYSTEM_PROMPT = """Eres un Mentor de Onboarding Corporativo.
 
 tools = [query_company_knowledge, get_calendar_events, insert_calendar_event]
 
-llm = ChatGroq(model="llama3-70b-8192", temperature=0)
+llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
 llm_with_tools = llm.bind_tools(tools)
 
 def call_model(state: AgentState):

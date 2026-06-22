@@ -7,7 +7,8 @@ load_dotenv()
 
 # Configurar Logging básico
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
-
+# Silenciar los logs de las peticiones HTTP
+logging.getLogger("httpx").setLevel(logging.WARNING)
 def main():
     print("Agente de Onboarding Iniciado. Escriba 'salir' para terminar.")
     while True:

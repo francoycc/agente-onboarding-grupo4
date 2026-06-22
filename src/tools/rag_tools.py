@@ -1,8 +1,7 @@
 # src/tools/rag_tools.py
 from langchain_core.tools import tool
-from langchain_community.embeddings import HuggingFaceEmbeddings
-from langchain_community.vectorstores import Chroma
-
+from langchain_huggingface import HuggingFaceEmbeddings
+from langchain_chroma import Chroma
 @tool
 def query_company_knowledge(query: str) -> str:
     """Busca en los manuales de la empresa, políticas de RRHH y rutas de aprendizaje. 

@@ -1,1 +1,1 @@
-El primer día de un dev junior debe incluir leer el código de conducta y configurar Git.
+"Bienvenido a la empresa. Las reglas de onboarding para perfiles Junior indican que el primer día deben completar el Curso de Git de 2 horas. El segundo día deben leer el Código de Conducta. El horario laboral es de 9 a 18hs."
