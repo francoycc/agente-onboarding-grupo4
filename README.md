@@ -1,4 +1,3 @@
-========================================================================
  AGENTE IA DE ONBOARDING CORPORATIVO (MULTI-STEP REACT)
 ========================================================================
 Trabajo Práctico N° 2 - Inteligencia Artificial (UTN FRSF 2026)
@@ -123,6 +122,6 @@ Para validar el comportamiento y el funcionamiento cruzado de RAG + Tools sin al
 - La herramienta física de Python intercepta la solicitud, realiza la validación de duplicados y efectúa el POST seguro a los servidores de Google Cloud.
 - Finalmente, el modelo concluye el plan de pasos lógicos y emite una respuesta sintetizada en lenguaje natural amigable indicando el link del evento real generado.
 
-========================================================================
-Grupo4 - 2026.
-========================================================================
+========================================
+Grupo4 - 2026
+========================================
