@@ -1,0 +1,1 @@
+El primer día de un dev junior debe incluir leer el código de conducta y configurar Git.
