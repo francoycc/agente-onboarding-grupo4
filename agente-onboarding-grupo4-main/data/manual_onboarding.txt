@@ -1,0 +1,315 @@
+MANUAL DE ONBOARDING CORPORATIVO — TECNOLOGÍA & INNOVACIÓN S.A.
+Versión 3.1 | Recursos Humanos | Actualizado: Junio 2026
+
+===============================================================
+SECCIÓN 1: BIENVENIDA Y CULTURA ORGANIZACIONAL
+===============================================================
+
+Bienvenido al equipo de Tecnología & Innovación S.A. Este manual está diseñado para guiarte durante tus primeras semanas en la empresa. Nuestro objetivo es que te integres de forma exitosa, conozcas nuestros procesos y comiences a contribuir con confianza.
+
+MISIÓN: Desarrollar soluciones tecnológicas de impacto que transformen la industria, con foco en la calidad, la innovación continua y el bienestar de las personas.
+
+VISIÓN: Ser la empresa de tecnología referente de Latinoamérica para 2030, reconocida por su cultura de aprendizaje y excelencia técnica.
+
+VALORES CORPORATIVOS:
+- Colaboración: Creemos que los mejores resultados se logran en equipo. Trabajamos en conjunto y compartimos conocimiento.
+- Excelencia técnica: Nos enorgullecemos de la calidad de nuestro código y nuestras soluciones.
+- Aprendizaje continuo: Todos los empleados tienen asignado un presupuesto anual de capacitación de USD 500.
+- Transparencia: La comunicación abierta es fundamental. Se fomenta dar y recibir feedback de manera constructiva.
+- Diversidad e inclusión: Valoramos la diversidad de perfiles, géneros y culturas. Tenemos una política de tolerancia cero ante cualquier forma de discriminación.
+
+===============================================================
+SECCIÓN 2: ESTRUCTURA DE LA EMPRESA
+===============================================================
+
+DEPARTAMENTOS PRINCIPALES:
+- Engineering: Responsable del desarrollo de productos. Se divide en squads por producto (Squad Alpha, Beta, Gamma).
+- Product: Gestión de roadmap, priorización y definición de funcionalidades.
+- Data & AI: Equipo de ciencia de datos, machine learning e inteligencia artificial.
+- DevOps & Infraestructura: Gestión de servidores, CI/CD, cloud (AWS y GCP).
+- QA (Quality Assurance): Testing manual y automatizado de todos los productos.
+- RRHH & People: Cultura, selección, bienestar y desarrollo profesional.
+- Legal & Compliance: Marco regulatorio, contratos y protección de datos.
+- Finanzas: Presupuestos, contabilidad y pagos a proveedores.
+
+JERARQUÍA EN ENGINEERING:
+- Junior Developer: Ejecuta tareas definidas, bajo supervisión de seniors.
+- Semi-Senior Developer: Trabaja con autonomía en módulos propios, participa en code reviews.
+- Senior Developer: Diseña soluciones, lidera técnicamente, hace mentoring.
+- Tech Lead: Responsable técnico del squad. Define arquitectura y estándares.
+- Engineering Manager: Gestión de personas y estrategia del área.
+
+===============================================================
+SECCIÓN 3: PLAN DE ONBOARDING POR SENIORITY
+===============================================================
+
+--- PERFIL JUNIOR (Semanas 1 a 4) ---
+
+SEMANA 1 – Inducción y herramientas:
+- Día 1: Completar el Curso de Git (2 horas). Disponible en la plataforma interna de e-learning (Moodle corporativo). El curso cubre: ramas, commits, pull requests y resolución de conflictos.
+- Día 1: Configuración del entorno de desarrollo local (guía en Confluence: "Setup Dev Environment").
+- Día 2: Leer el Código de Conducta completo (PDF en Google Drive compartido de RRHH).
+- Día 2: Leer la Política de Seguridad de la Información (clasificación de datos, manejo de credenciales, uso de VPN).
+- Día 3: Reunión de bienvenida con el Tech Lead de su squad (30 min). Se presenta el proyecto actual y el roadmap del trimestre.
+- Día 4: Completar el curso de "Introducción a la Metodología Ágil Scrum" (1.5 horas, Moodle).
+- Día 5: Primera Daily Standup en el squad. Presentación ante el equipo.
+
+SEMANA 2 – Primeras tareas:
+- Primer ticket asignado: siempre será una tarea de tipo "good first issue" etiquetada en Jira.
+- Asistir a la Retrospectiva del Sprint (si cae en esa semana).
+- Participar como observador en la Planning del próximo Sprint.
+- Reunión 1:1 con mentor asignado (cada Junior tiene un Senior como buddy).
+
+SEMANA 3 – Integración técnica:
+- Completar el curso de "Docker y Contenedores Básico" (2 horas, Moodle).
+- Primer code review a cargo: el Junior revisa el código de otro Junior con guía del mentor.
+- Presentación de avances a Tech Lead.
+
+SEMANA 4 – Evaluación de ingreso:
+- Evaluación 360° inicial: autoevaluación + feedback de mentor y Tech Lead.
+- Reunión de feedback con RRHH (30 min).
+- Definición de objetivos del próximo trimestre (OKRs individuales).
+
+--- PERFIL SEMI-SENIOR (Semanas 1 a 3) ---
+
+SEMANA 1 – Inducción acelerada:
+- Día 1: Revisión del Código de Conducta y Políticas de Seguridad.
+- Día 1: Setup del entorno de desarrollo y acceso a repositorios (Git, CI/CD pipelines).
+- Día 2: Reunión con Tech Lead: revisión de arquitectura del sistema actual y deuda técnica.
+- Día 3: Primer ticket de mediana complejidad asignado en Jira.
+- Día 4: Revisión de documentación técnica en Confluence (ADRs: Architecture Decision Records).
+
+SEMANA 2 – Aporte directo:
+- Participación plena en todas las ceremonias de Scrum (Daily, Planning, Review, Retro).
+- Asignación de módulo propio para desarrollar con autonomía.
+- Realización de al menos 2 code reviews a compañeros.
+
+SEMANA 3 – Evaluación y objetivos:
+- Reunión de feedback con Tech Lead y RRHH.
+- Definición de OKRs y mapa de carrera.
+
+--- PERFIL SENIOR (Semana 1) ---
+
+- Día 1: Reunión con Engineering Manager: visión estratégica del área y expectativas del rol.
+- Día 2: Reunión con Tech Leads de todos los squads: estado técnico de los proyectos.
+- Día 3: Revisión profunda de arquitectura (microservicios, APIs, base de datos).
+- Día 4: Asignación de primer tarea de alto impacto o liderazgo técnico de iniciativa.
+- Día 5: Definición de OKRs y áreas de mejora que el Senior liderará.
+
+===============================================================
+SECCIÓN 4: HERRAMIENTAS Y SISTEMAS INTERNOS
+===============================================================
+
+COMUNICACIÓN:
+- Slack: Herramienta principal de comunicación interna. Canal general: #general. Canal de tu squad: #squad-[nombre]. Canal de ayuda técnica: #tech-help.
+- Email corporativo (Gmail): Para comunicaciones formales y con externos.
+- Google Meet: Para videollamadas internas y con clientes.
+
+GESTIÓN DE PROYECTOS:
+- Jira: Gestión de tickets, sprints y tablero Kanban. Acceso en: jira.techinnova.com.ar
+- Confluence: Documentación interna, guías técnicas, runbooks y ADRs. Acceso en: confluence.techinnova.com.ar
+
+CÓDIGO Y CI/CD:
+- GitHub Enterprise: Repositorios de código. Todas las ramas deben seguir la convención: feature/[ticket-id]-descripcion.
+- GitLab CI: Pipelines de integración continua. Todo PR requiere pasar tests antes de mergear.
+- SonarQube: Análisis de calidad de código. El coverage mínimo obligatorio es del 80%.
+
+INFRAESTRUCTURA:
+- AWS (entorno productivo): ECS, RDS, S3, CloudFront.
+- GCP (entorno de desarrollo): Cloud Run, BigQuery, Cloud Storage.
+- Terraform: Toda la infraestructura está declarada como código (IaC).
+
+MONITOREO Y ALERTAS:
+- Datadog: Monitoreo de aplicaciones, logs y métricas.
+- PagerDuty: Sistema de alertas para incidentes en producción. Los seniors y tech leads son los on-call por defecto.
+
+DISEÑO:
+- Figma: Herramienta de diseño UI/UX. El equipo de Product y UX entrega mockups aquí.
+
+===============================================================
+SECCIÓN 5: POLÍTICAS LABORALES Y BENEFICIOS
+===============================================================
+
+HORARIO LABORAL:
+- El horario estándar es de 09:00 a 18:00 hs (Argentina, UTC-3), con 1 hora de almuerzo.
+- Se permite flexibilidad de hasta 1 hora de ingreso (entre 8:00 y 10:00 hs) siempre que se cumplan las 8 horas diarias.
+- Modalidad: Híbrida. Mínimo 2 días presenciales por semana (martes y jueves son los días de oficina comunes).
+
+VACACIONES Y LICENCIAS:
+- Vacaciones: 15 días hábiles anuales para empleados con menos de 5 años. 20 días hábiles para más de 5 años.
+- Licencia por enfermedad: Hasta 30 días con goce de sueldo por año, con certificado médico.
+- Licencia por maternidad/paternidad: 90 días para maternidad, 15 días para paternidad.
+- Días de estudio: 10 días de estudio pagas por año para empleados que cursen carreras universitarias o terciarias.
+
+BENEFICIOS:
+- Cobertura médica: Prepaga OSDE 410 bonificada al 70% para el empleado y al 50% para grupo familiar.
+- Bono anual: Hasta el 15% del salario anual, sujeto a evaluación de desempeño.
+- Home office equipment: Los nuevos empleados reciben laptop corporativa (MacBook Pro o ThinkPad según preferencia), monitor externo, teclado y mouse.
+- Presupuesto de capacitación: USD 500 anuales para cursos, libros, certificaciones o conferencias.
+- Plataforma de bienestar: Acceso gratuito a Calm (meditación) y Gympass (gimnasio).
+- Stock options: A partir del nivel Senior, se accede al plan de ESOP con vesting a 4 años.
+
+SALARIOS Y PAGOS:
+- Los salarios se pagan el último día hábil del mes.
+- Los aumentos se revisan en forma semestral (enero y julio).
+
+===============================================================
+SECCIÓN 6: CÓDIGO DE CONDUCTA
+===============================================================
+
+PRINCIPIOS FUNDAMENTALES:
+- Respeto: Todo el personal debe tratar a sus compañeros, clientes y proveedores con respeto y dignidad.
+- Integridad: Se espera honestidad en todas las interacciones. No se tolera el plagio de código ni el fraude.
+- Confidencialidad: La información de clientes, proyectos y estrategias de negocio es confidencial. No puede compartirse externamente sin autorización.
+- Conflictos de interés: Los empleados deben declarar cualquier relación comercial o personal que pueda representar un conflicto de interés.
+
+POLÍTICA ANTI-DISCRIMINACIÓN Y ANTI-ACOSO:
+- Está absolutamente prohibida cualquier forma de discriminación por género, orientación sexual, religión, origen étnico, edad o discapacidad.
+- El acoso (físico, verbal o virtual) en cualquiera de sus formas es causa de desvinculación inmediata.
+- Para reportar situaciones: canal anónimo en el portal interno → sección "Ética y Conducta".
+
+USO ACEPTABLE DE RECURSOS:
+- Los equipos y sistemas de la empresa son para uso profesional. Un uso personal moderado y no disruptivo es tolerado.
+- Está prohibido instalar software no autorizado en equipos corporativos.
+- Toda la actividad en redes de la empresa puede ser auditada.
+
+===============================================================
+SECCIÓN 7: SEGURIDAD DE LA INFORMACIÓN
+===============================================================
+
+MANEJO DE CREDENCIALES:
+- Las contraseñas deben ser únicas y complejas (mínimo 12 caracteres, combinando mayúsculas, números y símbolos).
+- Obligatorio el uso de un gestor de contraseñas corporativo (1Password, licencia provista por la empresa).
+- Nunca compartir contraseñas por Slack, email u otras vías. Si necesitás dar acceso temporal, usá los permisos de IAM.
+- El MFA (autenticación multifactor) es obligatorio para todos los sistemas críticos.
+
+CLASIFICACIÓN DE LA INFORMACIÓN:
+- Pública: Información que puede compartirse abiertamente (press releases, documentación pública).
+- Interna: Información de uso interno. No debe compartirse externamente sin autorización.
+- Confidencial: Datos de clientes, código fuente propietario, información financiera. Requiere aprobación de un manager para compartir.
+- Secreta: Información altamente sensible (datos de tarjetas, contraseñas de producción). Solo accesible por personas explícitamente autorizadas.
+
+VPN Y ACCESO REMOTO:
+- Es obligatorio conectarse a la VPN corporativa (Cisco AnyConnect) al trabajar desde redes no corporativas.
+- El acceso a entornos productivos siempre debe hacerse a través de VPN.
+
+POLÍTICA ANTE INCIDENTES DE SEGURIDAD:
+- Si detectás un comportamiento sospechoso, un acceso no autorizado o una brecha de datos, debés reportarlo de inmediato al canal de Slack #security-incidents.
+- El equipo de seguridad tiene un SLA de respuesta de 15 minutos para incidentes críticos.
+
+===============================================================
+SECCIÓN 8: PROCESOS DE DESARROLLO DE SOFTWARE
+===============================================================
+
+METODOLOGÍA ÁGIL:
+La empresa trabaja con Scrum en sprints de 2 semanas. Las ceremonias son:
+- Daily Standup: Todos los días a las 09:30 hs, 15 minutos. Se comparten: qué hiciste ayer, qué harás hoy, y si hay algún bloqueo.
+- Sprint Planning: Primer lunes del sprint, 2 horas. El equipo selecciona y estima los tickets del backlog.
+- Sprint Review: Último viernes del sprint, 1 hora. Se demuestra lo completado a stakeholders.
+- Retrospectiva: Último viernes del sprint, 1 hora. El equipo reflexiona sobre procesos y propone mejoras.
+- Refinamiento de backlog: Miércoles de la segunda semana del sprint, 1 hora. Grooming y estimación de próximos tickets.
+
+PROCESO DE CODE REVIEW:
+- Todos los cambios de código deben pasar por un Pull Request (PR).
+- Todo PR requiere al menos 2 aprobaciones: una del mentor o senior del squad y una del Tech Lead para funcionalidades críticas.
+- Los comentarios de code review deben ser constructivos y específicos.
+- El autor del PR es responsable de resolver todos los comentarios antes de mergear.
+- Los PRs no deben exceder 400 líneas de cambio. Si son más grandes, deben dividirse.
+
+ESTÁNDARES DE CÓDIGO:
+- Lenguaje principal backend: Python 3.11+ y Node.js 20+.
+- Lenguaje principal frontend: React 18 con TypeScript.
+- Linting: ESLint para JS/TS, Black + Flake8 para Python. Los pipelines fallan si no se cumple.
+- Documentación: Todas las funciones públicas deben tener docstrings. Las APIs deben estar documentadas con OpenAPI/Swagger.
+- Testing: Obligatorio unitario. Recomendado de integración. Coverage mínimo: 80% (verificado por SonarQube en cada PR).
+
+GESTIÓN DE RAMAS (BRANCHING):
+- main: Rama principal, siempre en estado deployable. Solo recibe merges desde develop o hotfix.
+- develop: Rama de integración continua.
+- feature/[ticket-id]-descripcion: Para nuevas funcionalidades.
+- bugfix/[ticket-id]-descripcion: Para correcciones de bugs.
+- hotfix/[ticket-id]-descripcion: Para correcciones urgentes en producción.
+
+DESPLIEGUE (DEPLOYMENT):
+- Staging: Despliegue automático al mergear en develop (pipeline de GitLab CI).
+- Producción: Despliegue manual, aprobado por el Tech Lead o Engineering Manager. Se hace los martes y jueves entre las 10:00 y 16:00 hs.
+- Rollback: Si un despliegue causa un error crítico, el rollback es automático después de 3 alertas de Datadog en 5 minutos.
+
+===============================================================
+SECCIÓN 9: GESTIÓN DE CARRERA Y DESARROLLO PROFESIONAL
+===============================================================
+
+EVALUACIONES DE DESEMPEÑO:
+- Se realizan de forma semestral: en junio y en diciembre.
+- Incluyen: autoevaluación, evaluación del manager, evaluación de pares (360°).
+- Los resultados impactan directamente en el bono anual y en las posibilidades de promoción.
+
+CRITERIOS DE PROMOCIÓN:
+Junior → Semi-Senior:
+- Mínimo 12 meses en el rol.
+- Demostrar autonomía técnica en al menos un módulo.
+- Haber completado al menos 3 cursos de capacitación en la plataforma.
+- Evaluación de desempeño promedio mayor a 4.0/5.0.
+
+Semi-Senior → Senior:
+- Mínimo 18 meses en el rol.
+- Haber liderado técnicamente al menos un proyecto o iniciativa.
+- Haber hecho mentoring activo de al menos un Junior.
+- Contribuciones a la documentación técnica interna.
+- Evaluación de desempeño promedio mayor a 4.2/5.0.
+
+PLAN DE CAPACITACIÓN RECOMENDADO POR ROL:
+
+Para Desarrolladores Junior:
+1. Curso de Git avanzado (Moodle, 2 horas) — Semana 1, obligatorio.
+2. Metodología Ágil Scrum (Moodle, 1.5 horas) — Semana 1, obligatorio.
+3. Docker y Contenedores Básico (Moodle, 2 horas) — Semana 3, obligatorio.
+4. Fundamentos de Python 3 / JavaScript ES6+ (Udemy, con presupuesto de capacitación).
+5. Testing con Pytest / Jest (Moodle, 2 horas) — Mes 1, obligatorio.
+6. Introducción a AWS / GCP (A Cloud Guru, con presupuesto de capacitación) — Mes 2.
+7. Clean Code y SOLID Principles (libro en la biblioteca digital interna) — Mes 2.
+
+Para Desarrolladores Semi-Senior:
+1. Arquitectura de Microservicios (Udemy o Pluralsight, presupuesto de capacitación).
+2. Kubernetes para desarrolladores (A Cloud Guru).
+3. Diseño de APIs RESTful y GraphQL.
+4. Patrones de diseño avanzados (GoF + Enterprise Patterns).
+5. Liderazgo técnico y code review efectivo (taller interno, calendario en Confluence).
+
+Para Desarrolladores Senior:
+1. Arquitectura de sistemas distribuidos a escala.
+2. Gestión de equipos técnicos y liderazgo de ingeniería.
+3. Cloud Architecture Professional (AWS o GCP Certification).
+4. Estrategia de deuda técnica y modernización de sistemas legados.
+
+===============================================================
+SECCIÓN 10: PREGUNTAS FRECUENTES (FAQ)
+===============================================================
+
+P: ¿A quién debo contactar si tengo un problema técnico con mi equipo?
+R: Escribí al canal de Slack #it-soporte. El equipo de IT tiene un SLA de respuesta de 4 horas hábiles.
+
+P: ¿Cómo solicito días de vacaciones?
+R: A través del portal de RRHH (portal.techinnova.com.ar). Las vacaciones deben solicitarse con al menos 15 días de anticipación y ser aprobadas por tu manager.
+
+P: ¿Puedo trabajar desde el exterior?
+R: Sí, por un máximo de 90 días corridos por año. Debés comunicarlo a RRHH y usar la VPN corporativa en todo momento.
+
+P: ¿Qué hago si tengo un conflicto con un compañero?
+R: Primero intentá resolverlo directamente en forma constructiva. Si no es posible, contactá a tu manager. Como último recurso, el área de RRHH tiene un canal de mediación confidencial.
+
+P: ¿Puedo usar ChatGPT u otras IAs en mi trabajo?
+R: Sí, con restricciones. Nunca ingreses código fuente propietario, datos de clientes ni información confidencial en modelos de IA externos. Usá siempre el entorno de IA corporativo aprobado (accesible en ai.techinnova.com.ar) para tareas sensibles.
+
+P: ¿Cuándo se libera mi acceso completo a todos los sistemas?
+R: Los accesos básicos se configuran el Día 1. Los accesos a entornos productivos se habilitan progresivamente según el rol: Juniors lo obtienen a partir de la Semana 4, Semi-Seniors a partir de la Semana 2, Seniors el Día 3.
+
+P: ¿Dónde encuentro el calendario de feriados y días no laborables?
+R: En Confluence, sección "RRHH → Calendario Corporativo 2026". También está publicado en el canal de Slack #general.
+
+P: ¿Cómo funciona el programa de buddy/mentor?
+R: Cada nuevo empleado recibe un buddy (par) y un mentor (senior). El buddy te ayuda con el día a día (dónde está la cocina, cómo se usa Jira). El mentor te guía en tu desarrollo técnico y profesional. Las reuniones de mentoring son quincenales, mínimo.
+
+===============================================================
+FIN DEL MANUAL DE ONBOARDING
+===============================================================

@@ -1,0 +1,172 @@
+{
+  "id": "3a2bfd5fae",
+  "name": "hola buenas tardes mi nombre es Valentin...",
+  "created_at": "2026-06-24T17:56:06.502548",
+  "updated_at": "2026-06-24T18:07:42.949118",
+  "chat_history": [
+    {
+      "type": "human",
+      "content": "hola buenas tardes mi nombre es Valentino un gusto"
+    },
+    {
+      "type": "ai",
+      "content": "¡Hola Valentino! Un placer conocerte. Me alegra que hayas iniciado el proceso de onboarding. Para poder crear tu perfil, necesito saber un poco más sobre ti. ¿Cuál es tu rol dentro de la empresa?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "mi rol dentro de la empresa es ser ayudante de infraestructura"
+    },
+    {
+      "type": "ai",
+      "content": "Excelente, gracias por compartir eso, Valentino. Ahora, me gustaría saber sobre tu seniority. ¿Cuánto tiempo de experiencia tienes en el área de infraestructura o en roles similares? ¿Eres junior, semi-senior o senior?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "en este momento me considero junior"
+    },
+    {
+      "type": "ai",
+      "content": "Genial, Valentino. Como junior en el área de infraestructura, es emocionante que estés empezando este camino. Ahora, me gustaría saber sobre tu horario laboral preferido. ¿Cuál es tu disponibilidad para trabajar? ¿Tienes algún horario en particular que te guste o te sea más cómodo, como por ejemplo, mañana, tarde, o un horario específico?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "me gusta sinceramente trabajar de 8am a 12am  de la mañana"
+    },
+    {
+      "type": "ai",
+      "content": "Entiendo, Valentino. Sin embargo, me parece que el horario que mencionas es un poco inusual, ya que de 8am a 12am serían 16 horas seguidas. ¿Podrías confirmar si te refieres a trabajar de 8am a 12pm (mediodía) o si hay algún otro horario que te sea más cómodo y realista para tu jornada laboral? \n\n",
+      "tool_calls": [
+        {
+          "name": "query_user_profile",
+          "args": {
+            "query": "horario laboral preferido para el rol de ayudante de infraestructura"
+          },
+          "id": "fdwdh2q5e"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "El perfil del usuario aún no ha sido creado. Es necesario realizar la entrevista de onboarding primero.",
+      "name": "query_user_profile",
+      "tool_call_id": "fdwdh2q5e"
+    },
+    {
+      "type": "ai",
+      "content": "Disculpa la confusión, Valentino. Me parece que hay un pequeño detalle con el horario que mencionaste. El horario que me dijiste es de 8am a 12am, lo que sería un total de 16 horas seguidas, lo que no es factible. ¿Podrías aclarar o confirmar si te refieres a un horario más tradicional, como de 8am a 12pm (mediodía) o de 8am a 4pm, por ejemplo? Además, ¿tienes alguna preferencia en cuanto a días de la semana o descansos que te gustaría incluir en tu horario laboral?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "8am a 12pm (mediodía) me quise referir a este horario, estoy trabajando lunes miercoles y viernes por ahora"
+    },
+    {
+      "type": "ai",
+      "content": "Entiendo mejor ahora, gracias por la aclaración, Valentino. Así que tu horario laboral preferido es de 8am a 12pm (mediodía), los lunes, miércoles y viernes. Me parece un horario razonable y cómodo.\n\nAhora, me gustaría saber un poco más sobre tus preferencias personales. ¿Tienes alguna preferencia en cuanto a la forma en que te gustaría recibir información o actualizaciones sobre el trabajo? ¿Por ejemplo, prefieres comunicaciones por correo electrónico, mensajes instantáneos, reuniones en persona o algo más? \n\n",
+      "tool_calls": [
+        {
+          "name": "query_user_profile",
+          "args": {
+            "query": "preferencias de comunicación para el rol de ayudante de infraestructura"
+          },
+          "id": "gsrfzsve8"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "El perfil del usuario aún no ha sido creado. Es necesario realizar la entrevista de onboarding primero.",
+      "name": "query_user_profile",
+      "tool_call_id": "gsrfzsve8"
+    },
+    {
+      "type": "ai",
+      "content": "Entendido, Valentino. Gracias por aclarar el horario. Ahora que tenemos tu nombre, rol, seniority y horario laboral, solo me falta saber sobre tus preferencias personales o de comunicación en el trabajo. ¿Hay algún método de comunicación que prefieras para recibir información o actualizaciones, como correo electrónico, teléfono, plataforma de mensajería instantánea, o algo más? ¿O tal vez hay algún tema o área en particular que te gustaría aprender o explorar durante tu tiempo en la empresa?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "por favoe todo por correo electronico, este es mi primer dia y necesito introducirme en la empresa, que me recomiendas para aprender?"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "políticas de RRHH y rutas de aprendizaje para nuevos empleados"
+          },
+          "id": "5gkwp055m"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Información recuperada de los manuales:\n- RRHH & People: Cultura, selección, bienestar y desarrollo profesional.\n- Legal & Compliance: Marco regulatorio, contratos y protección de datos.\n- Finanzas: Presupuestos, contabilidad y pagos a proveedores.\n\nP: ¿Puedo trabajar desde el exterior?\nR: Sí, por un máximo de 90 días corridos por año. Debés comunicarlo a RRHH y usar la VPN corporativa en todo momento.\n\nP: ¿Qué hago si tengo un conflicto con un compañero?\nR: Primero intentá resolverlo directamente en forma constructiva. Si no es posible, contactá a tu manager. Como último recurso, el área de RRHH tiene un canal de mediación confidencial.\n\n- Conflictos de interés: Los empleados deben declarar cualquier relación comercial o personal que pueda representar un conflicto de interés.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "5gkwp055m"
+    },
+    {
+      "type": "ai",
+      "content": "Excelente elección con el correo electrónico, Valentino. Ahora, para tu primer día y para introducirte en la empresa, te recomiendo revisar nuestros manuales de políticas de RRHH y rutas de aprendizaje. Allí encontrarás información valiosa sobre nuestra cultura corporativa, selección, bienestar y desarrollo profesional. También podrás familiarizarte con nuestro marco regulatorio, contratos y protección de datos.\n\nAdemás, te sugiero que explores nuestros recursos de finanzas, como presupuestos, contabilidad y pagos a proveedores. Esto te dará una buena base para entender cómo funcionamos como empresa.\n\nRecuerda que, si tienes alguna pregunta o inquietud, no dudes en hacérmelo saber. Estoy aquí para ayudarte en tu proceso de onboarding.\n\nAhora que hemos recopilado toda la información necesaria, voy a proceder a guardar tu perfil en nuestra base de datos local.\n\n",
+      "tool_calls": [
+        {
+          "name": "save_user_profile",
+          "args": {
+            "profile_data_json": "{\"nombre\": \"Valentino\", \"rol\": \"ayudante de infraestructura\", \"seniority\": \"junior\", \"horario_laboral\": \"8am-12pm, lunes, miércoles y viernes\", \"preferencias\": \"comunicación por correo electrónico\"}"
+          },
+          "id": "67gd5w11j"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "¡Éxito! El perfil de usuario ha sido guardado correctamente. La Fase 1 (Descubrimiento y Perfilado) ha finalizado.",
+      "name": "save_user_profile",
+      "tool_call_id": "67gd5w11j"
+    },
+    {
+      "type": "ai",
+      "content": "Excelente, Valentino. Ahora que tienes acceso a la información de la empresa y has completado tu perfil, te recomiendo que revises los manuales de la empresa, especialmente las políticas de RRHH y las rutas de aprendizaje para nuevos empleados. También te sugiero que te familiarices con los canales de comunicación y las herramientas que se utilizan en la empresa.\n\nEn cuanto a tu introducción en la empresa, te recomiendo que comiences por leer los documentos de bienvenida y las políticas de la empresa. Luego, puedes empezar a explorar las diferentes áreas de la empresa y conocer a tus colegas.\n\nRecuerda que siempre puedes comunicarte conmigo o con el área de RRHH si tienes alguna pregunta o inquietud. ¡Buena suerte en tu nuevo rol!",
+      "tool_calls": []
+    }
+  ],
+  "log_history": [
+    {
+      "type": "tool_call",
+      "title": "Acción: query_company_knowledge",
+      "content": "<code>{\"query\": \"políticas de RRHH y rutas de aprendizaje para nuevos empleados\"}</code>"
+    },
+    {
+      "type": "tool_response",
+      "title": "Resultado: query_company_knowledge",
+      "content": "Información recuperada de los manuales:\n- RRHH & People: Cultura, selección, bienestar y desarrollo profesional.\n- Legal & Compliance: Marco regulatorio, contratos y protección de datos.\n- Finanzas: Presupuestos, contabilidad y pagos a proveedores.\n\nP: ¿Puedo trabajar desde el exterior?\nR: Sí, por u..."
+    },
+    {
+      "type": "tool_call",
+      "title": "Acción: save_user_profile",
+      "content": "<code>{\"profile_data_json\": \"{\\\"nombre\\\": \\\"Valentino\\\", \\\"rol\\\": \\\"ayudante de infraestructura\\\", \\\"seniority\\\": \\\"junior\\\", \\\"horario_laboral\\\": \\\"8am-12pm, lunes, miércoles y viernes\\\", \\\"preferencias\\\": \\\"comunicación por correo electrónico\\\"}\"}</code>"
+    },
+    {
+      "type": "tool_response",
+      "title": "Resultado: save_user_profile",
+      "content": "¡Éxito! El perfil de usuario ha sido guardado correctamente. La Fase 1 (Descubrimiento y Perfilado) ha finalizado."
+    },
+    {
+      "type": "thought",
+      "title": "Respuesta del Agente",
+      "content": "Excelente, Valentino. Ahora que tienes acceso a la información de la empresa y has completado tu perfil, te recomiendo que revises los manuales de la empresa, especialmente las políticas de RRHH y las..."
+    }
+  ],
+  "profile": {
+    "nombre": "Valentino",
+    "rol": "ayudante de infraestructura",
+    "seniority": "junior",
+    "horario_laboral": "8am-12pm, lunes, miércoles y viernes",
+    "preferencias": "comunicación por correo electrónico"
+  }
+}

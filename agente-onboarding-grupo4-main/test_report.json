@@ -1,0 +1,168 @@
+{
+  "timestamp": "2026-06-24T12:06:35.867471",
+  "score": "6/20",
+  "pct": 30,
+  "results": [
+    {
+      "test": "01_saludo_inicial",
+      "status": "PASS",
+      "tools": [],
+      "elapsed": 0.67,
+      "error": null
+    },
+    {
+      "test": "02_pregunta_empresa_sin_perfil",
+      "status": "PASS",
+      "tools": [],
+      "elapsed": 0.61,
+      "error": null
+    },
+    {
+      "test": "03_agenda_sin_perfil",
+      "status": "PASS",
+      "tools": [
+        "query_user_profile",
+        "query_user_profile"
+      ],
+      "elapsed": 2.23,
+      "error": null
+    },
+    {
+      "test": "04_entrevista_parcial",
+      "status": "PASS",
+      "tools": [
+        "query_user_profile"
+      ],
+      "elapsed": 2.66,
+      "error": null
+    },
+    {
+      "test": "05_primer_dia_rag",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.57,
+      "error": "Error code: 400 - {'error': {'message': \"Failed to call a function. Please adjust your prompt. See 'failed_generation' for more details.\", 'type': 'invalid_request_error', 'code': 'tool_use_failed', 'failed_generation': '<function=query_company_knowledge{\"query\": \"actividades primer dia de trabajo\"}</function>'}}"
+    },
+    {
+      "test": "06_vacaciones_rag",
+      "status": "PASS",
+      "tools": [
+        "query_company_knowledge"
+      ],
+      "elapsed": 11.56,
+      "error": null
+    },
+    {
+      "test": "07_herramientas_rag",
+      "status": "FAIL",
+      "tools": [
+        "query_company_knowledge",
+        "query_company_knowledge"
+      ],
+      "elapsed": 10.21,
+      "error": null
+    },
+    {
+      "test": "08_seguridad_rag",
+      "status": "PASS",
+      "tools": [
+        "query_company_knowledge"
+      ],
+      "elapsed": 5.67,
+      "error": null
+    },
+    {
+      "test": "09_cursos_junior_rag",
+      "status": "FAIL",
+      "tools": [
+        "query_company_knowledge",
+        "query_company_knowledge",
+        "query_company_knowledge",
+        "query_company_knowledge",
+        "query_company_knowledge",
+        "query_company_knowledge"
+      ],
+      "elapsed": 69.16,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 97070, Requested 3504. Please try again in 8m15.936s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "10_pregunta_fuera_scope",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.66,
+      "error": null
+    },
+    {
+      "test": "11_ver_eventos_hoy",
+      "status": "FAIL",
+      "tools": [
+        "get_calendar_events"
+      ],
+      "elapsed": 4.56,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99779, Requested 1458. Please try again in 17m48.768s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "12_fecha_pasada",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99777, Requested 1388. Please try again in 16m46.56s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "13_find_slots",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99775, Requested 1384. Please try again in 16m41.376s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "14_agendar_evento_futuro",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": null
+    },
+    {
+      "test": "15_agenda_sin_fecha",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": null
+    },
+    {
+      "test": "16_prompt_injection",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.07,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99767, Requested 1394. Please try again in 16m43.104s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "17_input_vacio",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": null
+    },
+    {
+      "test": "18_input_largo",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99763, Requested 2029. Please try again in 25m48.287999999s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "19_multi_turno",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99760, Requested 1414. Please try again in 16m54.336s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    },
+    {
+      "test": "20_promocion_junior_semi",
+      "status": "FAIL",
+      "tools": [],
+      "elapsed": 0.06,
+      "error": "Error code: 429 - {'error': {'message': 'Rate limit reached for model `llama-3.3-70b-versatile` in organization `org_01kvv48ezjffb927e8rpdfd41s` service tier `on_demand` on tokens per day (TPD): Limit 100000, Used 99758, Requested 1390. Please try again in 16m31.872s. Need more tokens? Upgrade to Dev Tier today at https://console.groq.com/settings/billing', 'type': 'tokens', 'code': 'rate_limit_exceeded'}}"
+    }
+  ]
+}
