@@ -336,6 +336,382 @@ st.markdown("""
         font-weight: 600 !important;
         font-size: 0.85rem !important;
     }
+    [data-testid="stExpander"] {
+        background: rgba(15,23,42,0.5) !important;
+        border: 1px solid rgba(255,255,255,0.07) !important;
+        border-radius: 12px !important;
+        margin-bottom: 6px !important;
+    }
+
+    /* ── Panel Observabilidad ── */
+    .obs-panel {
+        background: linear-gradient(135deg, rgba(15,23,42,0.97), rgba(10,14,26,0.99));
+        border: 1px solid rgba(129,140,248,0.2);
+        border-radius: 20px;
+        padding: 28px 32px;
+        margin-bottom: 14px;
+        animation: panelIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+        backdrop-filter: blur(20px);
+    }
+    @keyframes panelIn {
+        from {opacity:0; transform:translateY(-12px);}
+        to   {opacity:1; transform:translateY(0);}
+    }
+    .obs-panel-header {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 22px;
+        padding-bottom: 18px;
+        border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .obs-panel-icon {
+        font-size: 1.6rem;
+        width: 50px; height: 50px;
+        background: rgba(129,140,248,0.1);
+        border: 1px solid rgba(129,140,248,0.2);
+        border-radius: 14px;
+        display: flex; align-items: center; justify-content: center;
+        flex-shrink: 0;
+    }
+    .obs-panel-title {
+        font-size: 1.05rem;
+        font-weight: 800;
+        color: #f1f5f9;
+        letter-spacing: -0.02em;
+    }
+    .obs-panel-sub {
+        font-size: 0.78rem;
+        color: #64748b;
+        margin-top: 3px;
+    }
+    /* Diagrama arquitectura */
+    .obs-arch-flow {
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        gap: 0;
+        margin-bottom: 20px;
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+    .obs-arch-node {
+        text-align: center;
+        padding: 16px 22px;
+        border-radius: 16px;
+        border: 1px solid;
+        min-width: 115px;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        flex: 1;
+        max-width: 160px;
+    }
+    .obs-arch-node:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.35); }
+    .obs-arch-icon { font-size: 1.6rem; margin-bottom: 6px; }
+    .obs-arch-name { font-size: 0.85rem; font-weight: 700; color: #f1f5f9; margin-bottom: 2px; }
+    .obs-arch-tech { font-size: 0.66rem; color: #64748b; font-weight: 500; }
+    .obs-arch-desc { font-size: 0.68rem; color: #475569; margin-top: 5px; line-height: 1.4; }
+    .obs-ui     { background: rgba(99,102,241,0.12); border-color: rgba(99,102,241,0.3); }
+    .obs-agent  { background: rgba(192,132,252,0.12); border-color: rgba(192,132,252,0.3); }
+    .obs-llm    { background: rgba(245,158,11,0.12); border-color: rgba(245,158,11,0.3); }
+    .obs-rag    { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); }
+    .obs-cal    { background: rgba(251,113,133,0.12); border-color: rgba(251,113,133,0.3); }
+    .obs-profile{ background: rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.3); }
+    .obs-arch-conn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 3px;
+        padding: 0 6px;
+        flex-shrink: 0;
+    }
+    .obs-arch-line {
+        width: 32px; height: 2px;
+        background: linear-gradient(90deg, rgba(129,140,248,0.3), rgba(129,140,248,0.8));
+        border-radius: 2px;
+    }
+    .obs-arch-arrowhead {
+        font-size: 0.75rem;
+        color: rgba(129,140,248,0.7);
+        margin-top: -3px;
+    }
+    .obs-arch-conn-label {
+        font-size: 0.58rem;
+        color: #475569;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+    }
+    .obs-tools-separator {
+        text-align: center;
+        font-size: 0.68rem;
+        color: #475569;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        margin: 16px 0 12px 0;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+    .obs-tools-separator::before, .obs-tools-separator::after {
+        content: '';
+        flex: 1;
+        height: 1px;
+        background: rgba(255,255,255,0.06);
+    }
+    .obs-arch-tools-row {
+        display: flex;
+        gap: 10px;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+    .obs-arch-tool {
+        text-align: center;
+        padding: 14px 16px;
+        border-radius: 14px;
+        border: 1px solid;
+        min-width: 140px;
+        flex: 1;
+        max-width: 200px;
+        transition: transform 0.2s ease;
+    }
+    .obs-arch-tool:hover { transform: translateY(-3px); }
+    /* Traza timeline */
+    .obs-step {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+    }
+    .obs-step-left {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-shrink: 0;
+        width: 32px;
+    }
+    .obs-step-num {
+        width: 32px; height: 32px;
+        border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        font-size: 0.78rem;
+        font-weight: 800;
+        color: #fff;
+        flex-shrink: 0;
+        position: relative;
+        z-index: 1;
+    }
+    .obs-step-vline {
+        width: 2px;
+        flex: 1;
+        min-height: 24px;
+        margin: 4px 0;
+        border-radius: 2px;
+    }
+    .obs-step-right {
+        padding-bottom: 18px;
+        flex: 1;
+        min-width: 0;
+    }
+    .obs-step-badge {
+        display: inline-block;
+        font-size: 0.6rem;
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        padding: 2px 9px;
+        border-radius: 20px;
+        margin-bottom: 5px;
+    }
+    .obs-step-title {
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #e2e8f0;
+        margin-bottom: 3px;
+    }
+    .obs-step-desc {
+        font-size: 0.81rem;
+        color: #94a3b8;
+        line-height: 1.5;
+    }
+    /* Tech tags */
+    .obs-tech-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 18px;
+        padding-top: 16px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .obs-tech-tag {
+        font-size: 0.67rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #64748b;
+    }
+    /* Backward compat: keep old wf-* classes as stubs so nothing breaks */
+    .workflow-panel {
+        background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(10,14,26,0.98));
+        border: 1px solid rgba(129,140,248,0.25);
+        border-radius: 20px;
+        padding: 28px 32px;
+        margin-bottom: 28px;
+        animation: panelIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
+        backdrop-filter: blur(20px);
+    }
+    @keyframes panelIn {
+        from {opacity:0; transform:translateY(-16px);}
+        to   {opacity:1; transform:translateY(0);}
+    }
+    .wf-title {
+        font-size: 1.1rem;
+        font-weight: 800;
+        color: #f1f5f9;
+        letter-spacing: -0.02em;
+        margin-bottom: 4px;
+    }
+    .wf-subtitle {
+        font-size: 0.8rem;
+        color: #64748b;
+        margin-bottom: 24px;
+    }
+    /* Nodos del diagrama */
+    .wf-diagram {
+        display: flex;
+        align-items: center;
+        gap: 0;
+        overflow-x: auto;
+        padding: 8px 0 16px 0;
+        flex-wrap: nowrap;
+    }
+    .wf-node {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        min-width: 100px;
+        flex-shrink: 0;
+    }
+    .wf-node-box {
+        width: 88px;
+        height: 72px;
+        border-radius: 14px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 4px;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        border: 1px solid;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .wf-node-box:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+    }
+    .wf-node-icon { font-size: 1.4rem; }
+    .wf-node-label { font-size: 0.85rem; color: #94a3b8; font-weight: 500; text-transform: none; letter-spacing: 0; }
+    /* Colores por nodo */
+    .wf-ui    { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.4); color: #a5b4fc; }
+    .wf-agent { background: rgba(192,132,252,0.15); border-color: rgba(192,132,252,0.4); color: #d8b4fe; }
+    .wf-llm   { background: rgba(251,191,36,0.12);  border-color: rgba(251,191,36,0.35); color: #fde68a; }
+    .wf-rag   { background: rgba(52,211,153,0.12);  border-color: rgba(52,211,153,0.35); color: #6ee7b7; }
+    .wf-cal   { background: rgba(251,113,133,0.12); border-color: rgba(251,113,133,0.35); color: #fda4af; }
+    /* Flechas */
+    .wf-arrow {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2px;
+        padding: 0 4px;
+        flex-shrink: 0;
+    }
+    .wf-arrow-line {
+        width: 36px;
+        height: 2px;
+        background: linear-gradient(90deg, rgba(129,140,248,0.4), rgba(129,140,248,0.8));
+        border-radius: 2px;
+        position: relative;
+    }
+    .wf-arrow-label {
+        font-size: 0.6rem;
+        color: #475569;
+        font-weight: 600;
+        letter-spacing: 0.05em;
+        white-space: nowrap;
+    }
+    /* Sección de traza viva */
+    .wf-trace-section {
+        margin-top: 24px;
+        border-top: 1px solid rgba(255,255,255,0.06);
+        padding-top: 20px;
+    }
+    .wf-trace-title {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #475569;
+        font-weight: 700;
+        margin-bottom: 12px;
+    }
+    .wf-step {
+        display: flex;
+        gap: 12px;
+        margin-bottom: 10px;
+        align-items: flex-start;
+    }
+    .wf-step-badge {
+        font-size: 0.65rem;
+        font-weight: 700;
+        padding: 3px 8px;
+        border-radius: 6px;
+        white-space: nowrap;
+        flex-shrink: 0;
+        margin-top: 2px;
+    }
+    .wf-badge-user   { background: rgba(99,102,241,0.2);  color: #a5b4fc; border: 1px solid rgba(99,102,241,0.3); }
+    .wf-badge-agent  { background: rgba(192,132,252,0.2); color: #d8b4fe; border: 1px solid rgba(192,132,252,0.3); }
+    .wf-badge-tool   { background: rgba(251,191,36,0.15);  color: #fde68a; border: 1px solid rgba(251,191,36,0.3); }
+    .wf-badge-rag    { background: rgba(52,211,153,0.15);  color: #6ee7b7; border: 1px solid rgba(52,211,153,0.3); }
+    .wf-badge-result { background: rgba(251,113,133,0.15); color: #fda4af; border: 1px solid rgba(251,113,133,0.3); }
+    .wf-badge-resp   { background: rgba(129,140,248,0.2);  color: #c7d2fe; border: 1px solid rgba(129,140,248,0.3); }
+    .wf-step-content {
+        font-size: 0.82rem;
+        color: #94a3b8;
+        line-height: 1.5;
+        flex: 1;
+    }
+    .wf-step-content code {
+        background: rgba(255,255,255,0.06);
+        padding: 1px 5px;
+        border-radius: 4px;
+        font-size: 0.78rem;
+        color: #cbd5e1;
+    }
+    /* Leyenda tecnologías */
+    .wf-tech-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: 20px;
+        border-top: 1px solid rgba(255,255,255,0.05);
+        padding-top: 16px;
+    }
+    .wf-tech-badge {
+        font-size: 0.68rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 20px;
+        background: rgba(255,255,255,0.04);
+        border: 1px solid rgba(255,255,255,0.1);
+        color: #64748b;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -374,6 +750,7 @@ def save_session(session_id: str, name: str, chat_history_serialized: list, log_
         "updated_at": datetime.now().isoformat(),
         "chat_history": chat_history_serialized,
         "log_history": log_history,
+        "traces": st.session_state.get("traces", []),
         "profile": profile,
     }
     with open(_session_path(session_id), "w", encoding="utf-8") as f:
@@ -425,6 +802,8 @@ if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
 if "log_history" not in st.session_state:
     st.session_state.log_history = []
+if "traces" not in st.session_state:
+    st.session_state.traces = []  # lista de trazas, una por respuesta del agente
 if "session_name" not in st.session_state:
     st.session_state.session_name = ""
 if "session_created_at" not in st.session_state:
@@ -436,6 +815,7 @@ def start_new_session():
     st.session_state.current_session_id = sid
     st.session_state.chat_history = []
     st.session_state.log_history = []
+    st.session_state.traces = []
     st.session_state.session_name = f"Chat {datetime.now().strftime('%d/%m %H:%M')}"
     st.session_state.session_created_at = datetime.now().isoformat()
     # Reset the LangGraph thread so the agent starts fresh
@@ -461,6 +841,7 @@ def switch_session(session_data: dict):
     st.session_state.current_session_id = session_data["id"]
     st.session_state.chat_history = deserialize_messages(session_data.get("chat_history", []))
     st.session_state.log_history = session_data.get("log_history", [])
+    st.session_state.traces = session_data.get("traces", [])
     st.session_state.session_name = session_data.get("name", "Sin nombre")
     st.session_state.session_created_at = session_data.get("created_at", datetime.now().isoformat())
     # Restaurar perfil si la sesión lo tenía
@@ -576,9 +957,12 @@ with st.sidebar:
         st.caption("Sin actividad aún en este turno.")
     else:
         for log in st.session_state.log_history:
-            if log["type"] == "thought":
+            ltype = log.get("type", "")
+            if ltype == "user_input":
                 icon, css_class = "▸", ""
-            elif log["type"] == "tool_call":
+            elif ltype in ("llm_decision", "llm_response", "thought"):
+                icon, css_class = "🧠", ""
+            elif ltype == "tool_call":
                 icon, css_class = "⚡", "tool-call"
             else:
                 icon, css_class = "↩", "tool-resp"
@@ -646,10 +1030,210 @@ if st.session_state.current_session_id is None:
 st.markdown('<div class="hero-title">Mentor de Onboarding</div>', unsafe_allow_html=True)
 st.markdown('<div class="hero-sub">Asistente autónomo con razonamiento multi-paso · LangGraph · RAG · Google Calendar</div>', unsafe_allow_html=True)
 
+# ── (El panel lateral de flujo fue eliminado para centrarse en la traza por mensaje) ──
+
+# ── BLOQUE ANTERIOR (eliminado) —— inicio marcador ficticio ──
+if False:  # dead code — se mantiene para no romper nada
+    _diagram_html_old = """
+    <div class="workflow-panel">
+        <div class="wf-title">Flujo de Trabajo — Arquitectura del Sistema</div>
+        <div class="wf-subtitle">Cómo interactúan los componentes para responder cada mensaje</div>
+
+        <div class="wf-diagram">
+            <div class="wf-node">
+                <div class="wf-node-box wf-ui">
+                    <span class="wf-node-icon">💬</span>
+                    <span>UI</span>
+                </div>
+                <span class="wf-node-label">Streamlit</span>
+            </div>
+            <div class="wf-arrow">
+                <div class="wf-arrow-line"></div>
+                <span class="wf-arrow-label">mensaje</span>
+            </div>
+            <div class="wf-node">
+                <div class="wf-node-box wf-agent">
+                    <span class="wf-node-icon">🔁</span>
+                    <span>Agente</span>
+                </div>
+                <span class="wf-node-label">LangGraph</span>
+            </div>
+            <div class="wf-arrow">
+                <div class="wf-arrow-line"></div>
+                <span class="wf-arrow-label">prompt</span>
+            </div>
+            <div class="wf-node">
+                <div class="wf-node-box wf-llm">
+                    <span class="wf-node-icon">🧠</span>
+                    <span>LLM</span>
+                </div>
+                <span class="wf-node-label">Groq / Llama</span>
+            </div>
+            <div class="wf-arrow">
+                <div class="wf-arrow-line"></div>
+                <span class="wf-arrow-label">tool call</span>
+            </div>
+            <div class="wf-node">
+                <div class="wf-node-box wf-rag">
+                    <span class="wf-node-icon">📚</span>
+                    <span>RAG</span>
+                </div>
+                <span class="wf-node-label">ChromaDB</span>
+            </div>
+            <div class="wf-arrow">
+                <div class="wf-arrow-line"></div>
+                <span class="wf-arrow-label">resultado</span>
+            </div>
+            <div class="wf-node">
+                <div class="wf-node-box wf-cal">
+                    <span class="wf-node-icon">📅</span>
+                    <span>Calendar</span>
+                </div>
+                <span class="wf-node-label">Google API</span>
+            </div>
+        </div>
+
+        <div class="wf-tech-row">
+            <span class="wf-tech-badge">Python 3.11</span>
+            <span class="wf-tech-badge">Streamlit</span>
+            <span class="wf-tech-badge">LangGraph</span>
+            <span class="wf-tech-badge">LangChain</span>
+            <span class="wf-tech-badge">Groq API</span>
+            <span class="wf-tech-badge">meta-llama/llama-4-scout-17b-16e-instruct</span>
+            <span class="wf-tech-badge">ChromaDB</span>
+            <span class="wf-tech-badge">HuggingFace Embeddings</span>
+            <span class="wf-tech-badge">Google Calendar API</span>
+            <span class="wf-tech-badge">OAuth 2.0</span>
+            <span class="wf-tech-badge">ReAct Pattern</span>
+        </div>
+    </div>
+    """
+    st.markdown(diagram_html, unsafe_allow_html=True)
+
+    # ── Traza viva de la última interacción ──
+    if st.session_state.log_history:
+        steps_html = ""
+        # Reconstruir flujo desde log_history
+        for log in st.session_state.log_history:
+            if log["type"] == "thought":
+                badge = '<span class="wf-step-badge wf-badge-resp">RESPUESTA LLM</span>'
+            elif log["type"] == "tool_call":
+                tool_name = log["title"].replace("Acción: ", "")
+                if "rag" in tool_name or "knowledge" in tool_name or "profile" in tool_name:
+                    badge = f'<span class="wf-step-badge wf-badge-rag">RAG / PERFIL</span>'
+                elif "calendar" in tool_name or "event" in tool_name or "slots" in tool_name:
+                    badge = f'<span class="wf-step-badge wf-badge-tool">CALENDAR</span>'
+                else:
+                    badge = f'<span class="wf-step-badge wf-badge-agent">AGENTE</span>'
+            else:
+                badge = '<span class="wf-step-badge wf-badge-result">RESULTADO</span>'
+
+            steps_html += f"""
+            <div class="wf-step">
+                {badge}
+                <div class="wf-step-content">
+                    <strong style="color:#e2e8f0;">{log['title']}</strong><br>
+                    {log['content']}
+                </div>
+            </div>
+            """
+
+        trace_html = f"""
+        <div class="workflow-panel" style="animation-delay:0.1s;">
+            <div class="wf-title">Traza de la Última Interacción</div>
+            <div class="wf-subtitle">Pasos ejecutados por el agente para responder tu último mensaje</div>
+            <div class="wf-trace-section">
+                <div class="wf-trace-title">Secuencia de ejecución — {len(st.session_state.log_history)} pasos</div>
+                {steps_html}
+            </div>
+        </div>
+        """
+        st.markdown(trace_html, unsafe_allow_html=True)
+    else:
+        st.markdown("""
+        <div class="workflow-panel" style="text-align:center; padding: 24px 32px;">
+            <div style="font-size:2rem; margin-bottom:8px;">⬡</div>
+            <div style="color:#64748b; font-size:0.88rem;">Todavía no hay interacciones en esta sesión.<br>Enviá un mensaje al agente para ver la traza en tiempo real.</div>
+        </div>
+        """, unsafe_allow_html=True)
+
+# Renderizar historial de chat
+# ──────────────────────────────────────────────────────────────────
+# FUNCIÓN: Renderizar traza de ejecución inline (por mensaje)
+# ──────────────────────────────────────────────────────────────────
+def render_trace_inline(trace_steps: list):
+    """Muestra la traza completa de un mensaje en texto legible (logs de LLM y Tools)."""
+    st.markdown("---")
+    st.markdown("**Flujo de Ejecución (Observabilidad Técnica):**")
+    
+    for i, step in enumerate(trace_steps):
+        ltype = step.get("type", "")
+        title = step.get("title", "")
+        content = step.get("content", "")
+        details = step.get("details", "")
+
+        import re
+        content_plain = re.sub(r"<[^>]+>", "", content)
+
+        if ltype == "user_input":
+            st.markdown(f"**Paso {i+1}: Entrada del Usuario**")
+            st.code(details or content_plain, language="text")
+
+        elif ltype == "llm_decision":
+            st.markdown(f"**Paso {i+1}: LLM - Razonamiento y Llamada a Herramientas**")
+            st.markdown("*El LLM decidió utilizar las siguientes herramientas:*")
+            if details:
+                st.code(details, language="json")
+
+        elif ltype == "tool_call":
+            st.markdown(f"**Paso {i+1}: Herramienta - Invocación (Entrada)**")
+            st.markdown(f"Función Invocada: `{title}`")
+            if details:
+                st.markdown("*Argumentos (Input):*")
+                st.code(details, language="json")
+
+        elif ltype == "tool_response":
+            st.markdown(f"**Paso {i+1}: Herramienta - Resultado (Salida)**")
+            if details:
+                st.markdown("*Respuesta de la Herramienta (Output):*")
+                display = details if len(details) <= 2000 else details[:2000] + "\n\n... [Contenido truncado a 2000 caracteres]"
+                st.code(display, language="text")
+
+        elif ltype in ("llm_response", "thought"):
+            st.markdown(f"**Paso {i+1}: LLM - Generación de Respuesta Final**")
+            st.markdown("*Respuesta pura generada por el LLM:*")
+            if details:
+                st.code(details, language="markdown")
+
+        if i < len(trace_steps) - 1:
+            st.markdown("---")
+
+
+# ──────────────────────────────────────────────
+# PANEL PRINCIPAL – CHAT
+# ──────────────────────────────────────────────
+
+# Si no hay sesión activa, crear una
+if st.session_state.current_session_id is None:
+    start_new_session()
+
+# Header
+st.markdown('<div class="hero-title">Mentor de Onboarding</div>', unsafe_allow_html=True)
+st.markdown('<div class="hero-sub">Asistente autónomo con razonamiento multi-paso · LangGraph · RAG · Google Calendar</div>', unsafe_allow_html=True)
+
 # Renderizar historial de chat
 chat_container = st.container()
 with chat_container:
     has_messages = False
+    ai_response_idx = 0  # índice para mapear AI responses con sus trazas
+    
+    total_ai_msgs = sum(1 for msg in st.session_state.chat_history if isinstance(msg, AIMessage) and msg.content and not msg.tool_calls)
+    traces_len = len(st.session_state.traces)
+    offset = total_ai_msgs - traces_len
+
+    def _toggle_trace_view(key: str):
+        st.session_state[key] = not st.session_state.get(key, False)
+
     for msg in st.session_state.chat_history:
         if isinstance(msg, HumanMessage):
             has_messages = True
@@ -660,6 +1244,23 @@ with chat_container:
                 has_messages = True
                 with st.chat_message("assistant"):
                     st.markdown(msg.content)
+                    # Botón de traza por mensaje
+                    trace_idx = ai_response_idx - offset
+                    has_trace = 0 <= trace_idx < traces_len
+                    if has_trace:
+                        trace_key = f"trace_visible_{trace_idx}"
+                        is_open = st.session_state.get(trace_key, False)
+                        btn_label = "Ocultar flujo de trabajo" if is_open else "Ver flujo de trabajo"
+                        st.button(
+                            btn_label,
+                            key=f"trace_btn_{trace_idx}",
+                            on_click=_toggle_trace_view,
+                            args=(trace_key,)
+                        )
+                        if is_open:
+                            with st.container():
+                                render_trace_inline(st.session_state.traces[trace_idx])
+                ai_response_idx += 1
 
     # Empty state cuando no hay mensajes
     if not has_messages:
@@ -689,6 +1290,14 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
         response_placeholder = st.empty()
         st.session_state.log_history = []
 
+        # ── Logging: captura mensaje del usuario como primer paso ──
+        st.session_state.log_history.append({
+            "type": "user_input",
+            "title": "Consulta del Usuario",
+            "content": "Mensaje recibido y enviado al agente.",
+            "details": user_query
+        })
+
         # ── Labels amigables para el indicador de progreso ──
         TOOL_LABELS = {
             "query_company_knowledge": "Consultando manuales de la empresa...",
@@ -699,6 +1308,16 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
             "delete_calendar_event":   "Eliminando el evento...",
             "update_calendar_event":   "Modificando el evento...",
             "find_available_slots":    "Buscando horarios libres...",
+        }
+        TOOL_DESCRIPTIONS = {
+            "query_company_knowledge": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings HuggingFace (all-MiniLM-L6-v2). Recupera los fragmentos del manual más relevantes para la consulta.",
+            "query_user_profile":      "Lee el perfil del empleado guardado localmente en data/user_profile.json.",
+            "save_user_profile":       "Persiste el perfil del empleado (nombre, rol, seniority, horario, preferencias) en data/user_profile.json.",
+            "get_calendar_events":     "Obtiene los eventos de Google Calendar del usuario en un rango de fechas vía API REST.",
+            "insert_calendar_event":   "Crea un nuevo evento en Google Calendar con título, descripción, hora de inicio y fin.",
+            "delete_calendar_event":   "Busca y elimina un evento en Google Calendar por nombre y fecha.",
+            "update_calendar_event":   "Modifica campos específicos de un evento existente en Google Calendar.",
+            "find_available_slots":    "Analiza el calendario del usuario y encuentra horarios disponibles en un día dado.",
         }
 
         def _is_rate_limit(err: Exception) -> bool:
@@ -712,6 +1331,7 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
         try:
             inputs = {"messages": st.session_state.chat_history}
             final_response = ""
+            llm_round = 0
 
             with st.status("Pensando...", expanded=False) as status:
                 for event in app.stream(inputs):
@@ -723,33 +1343,54 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
 
                             if isinstance(m, AIMessage):
                                 if m.tool_calls:
+                                    llm_round += 1
+                                    tool_names = [tc['name'] for tc in m.tool_calls]
+                                    # Log: LLM decidió invocar herramientas
+                                    st.session_state.log_history.append({
+                                        "type": "llm_decision",
+                                        "title": f"LLM — Razonamiento (turno {llm_round})",
+                                        "content": f"El modelo analizó el contexto y decidió invocar: <strong>{', '.join(tool_names)}</strong>",
+                                        "details": json.dumps({
+                                            "modelo": "meta-llama/llama-4-scout-17b-16e-instruct",
+                                            "proveedor": "Groq",
+                                            "patron": "ReAct (Reasoning + Acting)",
+                                            "turno_de_razonamiento": llm_round,
+                                            "herramientas_elegidas": tool_names
+                                        }, indent=2, ensure_ascii=False)
+                                    })
                                     for tc in m.tool_calls:
                                         label = TOOL_LABELS.get(tc['name'], f"Ejecutando {tc['name']}...")
                                         status.update(label=label)
                                         st.session_state.log_history.append({
                                             "type": "tool_call",
-                                            "title": f"Acción: {tc['name']}",
-                                            "content": f"<code>{json.dumps(tc['args'], ensure_ascii=False)}</code>"
+                                            "title": f"Tool invocada: {tc['name']}",
+                                            "content": TOOL_DESCRIPTIONS.get(tc['name'], tc['name']),
+                                            "details": json.dumps(tc['args'], indent=2, ensure_ascii=False)
                                         })
                                 else:
                                     final_response = m.content
                                     status.update(label="Redactando respuesta...", state="running")
                                     st.session_state.log_history.append({
-                                        "type": "thought",
-                                        "title": "Respuesta del Agente",
-                                        "content": m.content[:200] + "..." if len(m.content) > 200 else m.content
+                                        "type": "llm_response",
+                                        "title": "LLM — Respuesta Final",
+                                        "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
+                                        "details": m.content
                                     })
 
                             elif isinstance(m, ToolMessage):
                                 status.update(label="Procesando resultado...")
-                                content_preview = m.content[:300] + "..." if len(m.content) > 300 else m.content
+                                char_count = len(m.content)
                                 st.session_state.log_history.append({
                                     "type": "tool_response",
-                                    "title": f"Resultado: {m.name}",
-                                    "content": content_preview
+                                    "title": f"Resultado de: {m.name}",
+                                    "content": f"La herramienta retornó <strong>{char_count} caracteres</strong> de datos al agente.",
+                                    "details": m.content[:4000]
                                 })
 
                 status.update(label="Respuesta lista", state="complete", expanded=False)
+
+            # Guardar traza de esta interacción
+            st.session_state.traces.append(list(st.session_state.log_history))
 
             # Mostrar la respuesta final
             if final_response:

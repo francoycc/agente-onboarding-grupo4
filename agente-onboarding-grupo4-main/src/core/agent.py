@@ -49,15 +49,15 @@ tools = [
     find_available_slots,
 ]
 
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+llm = ChatGroq(model="meta-llama/llama-4-scout-17b-16e-instruct", temperature=0)
 llm_with_tools = llm.bind_tools(tools)
 
 # ──────────────────────────────────────────────────────────
-# RETRY con backoff exponencial para errores de Groq
+# RETRY con backoff exponencial para errores de rate limit
 # ──────────────────────────────────────────────────────────
 def _invoke_with_retry(messages: list, max_retries: int = 3) -> AnyMessage:
     """Invoca el LLM con reintentos automáticos ante errores de rate limit (429)
-    o fallos de tool_use (400). Usa backoff exponencial."""
+    o fallos de tool_use (400). Usa backoff exponencial. Compatible con Gemini y Groq."""
     for attempt in range(max_retries):
         try:
             return llm_with_tools.invoke(messages)
@@ -69,7 +69,7 @@ def _invoke_with_retry(messages: list, max_retries: int = 3) -> AnyMessage:
             if (is_rate_limit or is_tool_fail) and attempt < max_retries - 1:
                 wait_sec = 2 ** attempt  # 1s, 2s, 4s
                 logging.warning(
-                    f"⚠️ Error Groq (intento {attempt + 1}/{max_retries}): {e}. "
+                    f"⚠️ Error Gemini (intento {attempt + 1}/{max_retries}): {e}. "
                     f"Reintentando en {wait_sec}s..."
                 )
                 time.sleep(wait_sec)
