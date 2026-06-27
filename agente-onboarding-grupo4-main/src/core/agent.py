@@ -86,8 +86,11 @@ def call_model(state: AgentState):
 
     now = datetime.now()
     date_context = (
-        f"\n[Contexto] Fecha: {now.strftime('%Y-%m-%d')} | "
-        f"Hora: {now.strftime('%H:%M:%S')} UTC-3. Nunca agendes en el pasado.\n"
+        f"\n[Contexto Temporal]\n"
+        f"- Fecha actual: {now.strftime('%Y-%m-%d')}\n"
+        f"- Hora actual: {now.strftime('%H:%M:%S')}\n"
+        f"- Zona Horaria: UTC-3 (Argentina)\n"
+        f"CRÍTICO: Si el usuario usa términos relativos como 'mañana a la tarde' o 'hoy a las 15', DEBES interpretarlos asumiendo esta fecha, hora y zona horaria (UTC-3). Nunca agendes en el pasado.\n"
     )
 
     if not profile_exists:

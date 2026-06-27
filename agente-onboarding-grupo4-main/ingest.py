@@ -28,8 +28,8 @@ def ingest_knowledge():
     logging.info(f"Documento dividido en {len(splits)} fragmentos.")
 
     # 3. Crear embeddings y guardar en ChromaDB
-    logging.info("Descargando modelo de Embeddings (esto puede demorar la primera vez)...")
-    embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
+    logging.info("Descargando modelo de Embeddings multilingüe (esto puede demorar la primera vez)...")
+    embeddings = HuggingFaceEmbeddings(model_name="paraphrase-multilingual-MiniLM-L12-v2")
     
     logging.info("Creando base de datos vectorial ChromaDB...")
     vectorstore = Chroma.from_documents(

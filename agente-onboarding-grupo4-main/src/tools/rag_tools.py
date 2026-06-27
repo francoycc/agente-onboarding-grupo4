@@ -2,16 +2,28 @@
 from langchain_core.tools import tool
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+# Global variables for lazy loading
+_embeddings = None
+_db = None
+
+def _get_db():
+    """Inicializa la base de datos de manera perezosa (lazy) para que solo se cargue una vez."""
+    global _embeddings, _db
+    if _db is None:
+        # Usamos un modelo multilingüe optimizado para español
+        _embeddings = HuggingFaceEmbeddings(model_name="paraphrase-multilingual-MiniLM-L12-v2")
+        _db = Chroma(persist_directory="./chroma_db", embedding_function=_embeddings)
+    return _db
+
 @tool
 def query_company_knowledge(query: str) -> str:
     """Busca en los manuales de la empresa, políticas de RRHH y rutas de aprendizaje. 
     Input: una frase de búsqueda clara sobre lo que el empleado necesita saber."""
     try:
-        # Usamos un modelo Open Source 
-        embeddings = HuggingFaceEmbeddings(model_name="all-MiniLM-L6-v2")
-        db = Chroma(persist_directory="./chroma_db", embedding_function=embeddings)
+        db = _get_db()
         
-        docs = db.similarity_search(query, k=3)
+        # Aumentamos k a 4 para obtener mayor contexto
+        docs = db.similarity_search(query, k=4)
         
         if not docs:
             return "No se encontró información relevante en los manuales."

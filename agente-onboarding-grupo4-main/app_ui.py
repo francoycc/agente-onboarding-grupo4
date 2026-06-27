@@ -13,6 +13,27 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 # ──────────────────────────────────────────────
+# OBSERVABILIDAD: ARIZE PHOENIX
+# ──────────────────────────────────────────────
+@st.cache_resource
+def init_phoenix_instrumentation():
+    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
+    from opentelemetry.sdk.trace import TracerProvider
+    from opentelemetry.sdk.trace.export import SimpleSpanProcessor
+    from opentelemetry import trace
+    from openinference.instrumentation.langchain import LangChainInstrumentor
+
+    endpoint = "http://127.0.0.1:6006/v1/traces"
+    tracer_provider = TracerProvider()
+    tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter(endpoint)))
+    trace.set_tracer_provider(tracer_provider)
+    
+    LangChainInstrumentor().instrument()
+    return "http://localhost:6006"
+
+phoenix_url = init_phoenix_instrumentation()
+
+# ──────────────────────────────────────────────
 # CONFIGURACIÓN DE PÁGINA
 # ──────────────────────────────────────────────
 st.set_page_config(
@@ -741,7 +762,7 @@ def load_sessions_index() -> list[dict]:
     sessions.sort(key=lambda s: s.get("updated_at", ""), reverse=True)
     return sessions
 
-def save_session(session_id: str, name: str, chat_history_serialized: list, log_history: list, profile: dict | None):
+def save_session(session_id: str, name: str, chat_history_serialized: list, profile: dict | None):
     """Persiste la sesión actual a disco."""
     data = {
         "id": session_id,
@@ -749,7 +770,6 @@ def save_session(session_id: str, name: str, chat_history_serialized: list, log_
         "created_at": st.session_state.get("session_created_at", datetime.now().isoformat()),
         "updated_at": datetime.now().isoformat(),
         "chat_history": chat_history_serialized,
-        "log_history": log_history,
         "traces": st.session_state.get("traces", []),
         "profile": profile,
     }
@@ -800,10 +820,6 @@ if "current_session_id" not in st.session_state:
     st.session_state.current_session_id = None
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
-if "log_history" not in st.session_state:
-    st.session_state.log_history = []
-if "traces" not in st.session_state:
-    st.session_state.traces = []  # lista de trazas, una por respuesta del agente
 if "session_name" not in st.session_state:
     st.session_state.session_name = ""
 if "session_created_at" not in st.session_state:
@@ -814,11 +830,8 @@ def start_new_session():
     sid = uuid.uuid4().hex[:10]
     st.session_state.current_session_id = sid
     st.session_state.chat_history = []
-    st.session_state.log_history = []
-    st.session_state.traces = []
     st.session_state.session_name = f"Chat {datetime.now().strftime('%d/%m %H:%M')}"
     st.session_state.session_created_at = datetime.now().isoformat()
-    # Reset the LangGraph thread so the agent starts fresh
     st.session_state.thread_id = sid
 
 
@@ -830,7 +843,6 @@ def _on_new_chat_click():
             st.session_state.current_session_id,
             st.session_state.session_name,
             serialize_messages(st.session_state.chat_history),
-            st.session_state.log_history,
             get_user_profile()
         )
     start_new_session()
@@ -840,11 +852,8 @@ def _on_new_chat_click():
 def switch_session(session_data: dict):
     st.session_state.current_session_id = session_data["id"]
     st.session_state.chat_history = deserialize_messages(session_data.get("chat_history", []))
-    st.session_state.log_history = session_data.get("log_history", [])
-    st.session_state.traces = session_data.get("traces", [])
     st.session_state.session_name = session_data.get("name", "Sin nombre")
     st.session_state.session_created_at = session_data.get("created_at", datetime.now().isoformat())
-    # Restaurar perfil si la sesión lo tenía
     profile = session_data.get("profile")
     if profile:
         os.makedirs("data", exist_ok=True)
@@ -900,7 +909,6 @@ with st.sidebar:
                     st.session_state.current_session_id,
                     st.session_state.session_name,
                     serialize_messages(st.session_state.chat_history),
-                    st.session_state.log_history,
                     get_user_profile()
                 )
             switch_session(sess_data)
@@ -951,33 +959,9 @@ with st.sidebar:
         card_html += '</div>'
         st.markdown(card_html, unsafe_allow_html=True)
 
-    # Trazas de observabilidad
-    st.markdown('<div class="sidebar-section-title">Trazas ReAct</div>', unsafe_allow_html=True)
-    if not st.session_state.log_history:
-        st.caption("Sin actividad aún en este turno.")
-    else:
-        for log in st.session_state.log_history:
-            ltype = log.get("type", "")
-            if ltype == "user_input":
-                icon, css_class = "▸", ""
-            elif ltype in ("llm_decision", "llm_response", "thought"):
-                icon, css_class = "🧠", ""
-            elif ltype == "tool_call":
-                icon, css_class = "⚡", "tool-call"
-            else:
-                icon, css_class = "↩", "tool-resp"
-            st.markdown(f"""
-            <div class="trace-item {css_class}">
-                <div class="trace-title">{icon} {log['title']}</div>
-                <div class="trace-body">{log['content']}</div>
-            </div>
-            """, unsafe_allow_html=True)
-
     # ── Estadísticas de la sesión ──
     st.markdown('<div class="sidebar-section-title">Estadísticas</div>', unsafe_allow_html=True)
     human_msgs = [m for m in st.session_state.chat_history if isinstance(m, HumanMessage)]
-    tools_used = [log["title"].replace("Acción: ", "") for log in st.session_state.log_history if log["type"] == "tool_call"]
-    tools_unique = list(dict.fromkeys(tools_used))  # unique preservando orden
     session_start = st.session_state.get("session_created_at", datetime.now().isoformat())
     try:
         delta = datetime.now() - datetime.fromisoformat(session_start)
@@ -990,8 +974,6 @@ with st.sidebar:
     <div class="profile-card" style="margin-top:4px;">
         <div class="field-label">Mensajes enviados</div>
         <div class="field-value">{len(human_msgs)}</div>
-        <div class="field-label">Herramientas usadas</div>
-        <div class="field-value">{', '.join(tools_unique) if tools_unique else '—'}</div>
         <div class="field-label">Duración sesión</div>
         <div class="field-value">{duration_str}</div>
     </div>
@@ -1003,13 +985,11 @@ with st.sidebar:
 
     def _on_clear_chat():
         st.session_state.chat_history = []
-        st.session_state.log_history = []
 
     def _on_reset_profile():
         if os.path.exists("data/user_profile.json"):
             os.remove("data/user_profile.json")
         st.session_state.chat_history = []
-        st.session_state.log_history = []
 
     col1, col2 = st.columns(2)
     with col1:
@@ -1017,196 +997,9 @@ with st.sidebar:
     with col2:
         st.button("Reiniciar Perfil", use_container_width=True, key="btn_reset", on_click=_on_reset_profile)
 
-
-# ──────────────────────────────────────────────
-# PANEL PRINCIPAL – CHAT
-# ──────────────────────────────────────────────
-
-# Si no hay sesión activa, crear una
-if st.session_state.current_session_id is None:
-    start_new_session()
-
-# Header
-st.markdown('<div class="hero-title">Mentor de Onboarding</div>', unsafe_allow_html=True)
-st.markdown('<div class="hero-sub">Asistente autónomo con razonamiento multi-paso · LangGraph · RAG · Google Calendar</div>', unsafe_allow_html=True)
-
-# ── (El panel lateral de flujo fue eliminado para centrarse en la traza por mensaje) ──
-
-# ── BLOQUE ANTERIOR (eliminado) —— inicio marcador ficticio ──
-if False:  # dead code — se mantiene para no romper nada
-    _diagram_html_old = """
-    <div class="workflow-panel">
-        <div class="wf-title">Flujo de Trabajo — Arquitectura del Sistema</div>
-        <div class="wf-subtitle">Cómo interactúan los componentes para responder cada mensaje</div>
-
-        <div class="wf-diagram">
-            <div class="wf-node">
-                <div class="wf-node-box wf-ui">
-                    <span class="wf-node-icon">💬</span>
-                    <span>UI</span>
-                </div>
-                <span class="wf-node-label">Streamlit</span>
-            </div>
-            <div class="wf-arrow">
-                <div class="wf-arrow-line"></div>
-                <span class="wf-arrow-label">mensaje</span>
-            </div>
-            <div class="wf-node">
-                <div class="wf-node-box wf-agent">
-                    <span class="wf-node-icon">🔁</span>
-                    <span>Agente</span>
-                </div>
-                <span class="wf-node-label">LangGraph</span>
-            </div>
-            <div class="wf-arrow">
-                <div class="wf-arrow-line"></div>
-                <span class="wf-arrow-label">prompt</span>
-            </div>
-            <div class="wf-node">
-                <div class="wf-node-box wf-llm">
-                    <span class="wf-node-icon">🧠</span>
-                    <span>LLM</span>
-                </div>
-                <span class="wf-node-label">Groq / Llama</span>
-            </div>
-            <div class="wf-arrow">
-                <div class="wf-arrow-line"></div>
-                <span class="wf-arrow-label">tool call</span>
-            </div>
-            <div class="wf-node">
-                <div class="wf-node-box wf-rag">
-                    <span class="wf-node-icon">📚</span>
-                    <span>RAG</span>
-                </div>
-                <span class="wf-node-label">ChromaDB</span>
-            </div>
-            <div class="wf-arrow">
-                <div class="wf-arrow-line"></div>
-                <span class="wf-arrow-label">resultado</span>
-            </div>
-            <div class="wf-node">
-                <div class="wf-node-box wf-cal">
-                    <span class="wf-node-icon">📅</span>
-                    <span>Calendar</span>
-                </div>
-                <span class="wf-node-label">Google API</span>
-            </div>
-        </div>
-
-        <div class="wf-tech-row">
-            <span class="wf-tech-badge">Python 3.11</span>
-            <span class="wf-tech-badge">Streamlit</span>
-            <span class="wf-tech-badge">LangGraph</span>
-            <span class="wf-tech-badge">LangChain</span>
-            <span class="wf-tech-badge">Groq API</span>
-            <span class="wf-tech-badge">meta-llama/llama-4-scout-17b-16e-instruct</span>
-            <span class="wf-tech-badge">ChromaDB</span>
-            <span class="wf-tech-badge">HuggingFace Embeddings</span>
-            <span class="wf-tech-badge">Google Calendar API</span>
-            <span class="wf-tech-badge">OAuth 2.0</span>
-            <span class="wf-tech-badge">ReAct Pattern</span>
-        </div>
-    </div>
-    """
-    st.markdown(diagram_html, unsafe_allow_html=True)
-
-    # ── Traza viva de la última interacción ──
-    if st.session_state.log_history:
-        steps_html = ""
-        # Reconstruir flujo desde log_history
-        for log in st.session_state.log_history:
-            if log["type"] == "thought":
-                badge = '<span class="wf-step-badge wf-badge-resp">RESPUESTA LLM</span>'
-            elif log["type"] == "tool_call":
-                tool_name = log["title"].replace("Acción: ", "")
-                if "rag" in tool_name or "knowledge" in tool_name or "profile" in tool_name:
-                    badge = f'<span class="wf-step-badge wf-badge-rag">RAG / PERFIL</span>'
-                elif "calendar" in tool_name or "event" in tool_name or "slots" in tool_name:
-                    badge = f'<span class="wf-step-badge wf-badge-tool">CALENDAR</span>'
-                else:
-                    badge = f'<span class="wf-step-badge wf-badge-agent">AGENTE</span>'
-            else:
-                badge = '<span class="wf-step-badge wf-badge-result">RESULTADO</span>'
-
-            steps_html += f"""
-            <div class="wf-step">
-                {badge}
-                <div class="wf-step-content">
-                    <strong style="color:#e2e8f0;">{log['title']}</strong><br>
-                    {log['content']}
-                </div>
-            </div>
-            """
-
-        trace_html = f"""
-        <div class="workflow-panel" style="animation-delay:0.1s;">
-            <div class="wf-title">Traza de la Última Interacción</div>
-            <div class="wf-subtitle">Pasos ejecutados por el agente para responder tu último mensaje</div>
-            <div class="wf-trace-section">
-                <div class="wf-trace-title">Secuencia de ejecución — {len(st.session_state.log_history)} pasos</div>
-                {steps_html}
-            </div>
-        </div>
-        """
-        st.markdown(trace_html, unsafe_allow_html=True)
-    else:
-        st.markdown("""
-        <div class="workflow-panel" style="text-align:center; padding: 24px 32px;">
-            <div style="font-size:2rem; margin-bottom:8px;">⬡</div>
-            <div style="color:#64748b; font-size:0.88rem;">Todavía no hay interacciones en esta sesión.<br>Enviá un mensaje al agente para ver la traza en tiempo real.</div>
-        </div>
-        """, unsafe_allow_html=True)
-
-# Renderizar historial de chat
-# ──────────────────────────────────────────────────────────────────
-# FUNCIÓN: Renderizar traza de ejecución inline (por mensaje)
-# ──────────────────────────────────────────────────────────────────
-def render_trace_inline(trace_steps: list):
-    """Muestra la traza completa de un mensaje en texto legible (logs de LLM y Tools)."""
-    st.markdown("---")
-    st.markdown("**Flujo de Ejecución (Observabilidad Técnica):**")
-    
-    for i, step in enumerate(trace_steps):
-        ltype = step.get("type", "")
-        title = step.get("title", "")
-        content = step.get("content", "")
-        details = step.get("details", "")
-
-        import re
-        content_plain = re.sub(r"<[^>]+>", "", content)
-
-        if ltype == "user_input":
-            st.markdown(f"**Paso {i+1}: Entrada del Usuario**")
-            st.code(details or content_plain, language="text")
-
-        elif ltype == "llm_decision":
-            st.markdown(f"**Paso {i+1}: LLM - Razonamiento y Llamada a Herramientas**")
-            st.markdown("*El LLM decidió utilizar las siguientes herramientas:*")
-            if details:
-                st.code(details, language="json")
-
-        elif ltype == "tool_call":
-            st.markdown(f"**Paso {i+1}: Herramienta - Invocación (Entrada)**")
-            st.markdown(f"Función Invocada: `{title}`")
-            if details:
-                st.markdown("*Argumentos (Input):*")
-                st.code(details, language="json")
-
-        elif ltype == "tool_response":
-            st.markdown(f"**Paso {i+1}: Herramienta - Resultado (Salida)**")
-            if details:
-                st.markdown("*Respuesta de la Herramienta (Output):*")
-                display = details if len(details) <= 2000 else details[:2000] + "\n\n... [Contenido truncado a 2000 caracteres]"
-                st.code(display, language="text")
-
-        elif ltype in ("llm_response", "thought"):
-            st.markdown(f"**Paso {i+1}: LLM - Generación de Respuesta Final**")
-            st.markdown("*Respuesta pura generada por el LLM:*")
-            if details:
-                st.code(details, language="markdown")
-
-        if i < len(trace_steps) - 1:
-            st.markdown("---")
+    # Observabilidad
+    st.markdown('<div class="sidebar-section-title">Observabilidad</div>', unsafe_allow_html=True)
+    st.info(f"📊 **[Abrir Dashboard de Phoenix]({phoenix_url})**")
 
 
 # ──────────────────────────────────────────────
@@ -1225,15 +1018,6 @@ st.markdown('<div class="hero-sub">Asistente autónomo con razonamiento multi-pa
 chat_container = st.container()
 with chat_container:
     has_messages = False
-    ai_response_idx = 0  # índice para mapear AI responses con sus trazas
-    
-    total_ai_msgs = sum(1 for msg in st.session_state.chat_history if isinstance(msg, AIMessage) and msg.content and not msg.tool_calls)
-    traces_len = len(st.session_state.traces)
-    offset = total_ai_msgs - traces_len
-
-    def _toggle_trace_view(key: str):
-        st.session_state[key] = not st.session_state.get(key, False)
-
     for msg in st.session_state.chat_history:
         if isinstance(msg, HumanMessage):
             has_messages = True
@@ -1244,23 +1028,6 @@ with chat_container:
                 has_messages = True
                 with st.chat_message("assistant"):
                     st.markdown(msg.content)
-                    # Botón de traza por mensaje
-                    trace_idx = ai_response_idx - offset
-                    has_trace = 0 <= trace_idx < traces_len
-                    if has_trace:
-                        trace_key = f"trace_visible_{trace_idx}"
-                        is_open = st.session_state.get(trace_key, False)
-                        btn_label = "Ocultar flujo de trabajo" if is_open else "Ver flujo de trabajo"
-                        st.button(
-                            btn_label,
-                            key=f"trace_btn_{trace_idx}",
-                            on_click=_toggle_trace_view,
-                            args=(trace_key,)
-                        )
-                        if is_open:
-                            with st.container():
-                                render_trace_inline(st.session_state.traces[trace_idx])
-                ai_response_idx += 1
 
     # Empty state cuando no hay mensajes
     if not has_messages:
@@ -1288,15 +1055,6 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
 
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
-        st.session_state.log_history = []
-
-        # ── Logging: captura mensaje del usuario como primer paso ──
-        st.session_state.log_history.append({
-            "type": "user_input",
-            "title": "Consulta del Usuario",
-            "content": "Mensaje recibido y enviado al agente.",
-            "details": user_query
-        })
 
         # ── Labels amigables para el indicador de progreso ──
         TOOL_LABELS = {
@@ -1346,51 +1104,17 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
                                     llm_round += 1
                                     tool_names = [tc['name'] for tc in m.tool_calls]
                                     # Log: LLM decidió invocar herramientas
-                                    st.session_state.log_history.append({
-                                        "type": "llm_decision",
-                                        "title": f"LLM — Razonamiento (turno {llm_round})",
-                                        "content": f"El modelo analizó el contexto y decidió invocar: <strong>{', '.join(tool_names)}</strong>",
-                                        "details": json.dumps({
-                                            "modelo": "meta-llama/llama-4-scout-17b-16e-instruct",
-                                            "proveedor": "Groq",
-                                            "patron": "ReAct (Reasoning + Acting)",
-                                            "turno_de_razonamiento": llm_round,
-                                            "herramientas_elegidas": tool_names
-                                        }, indent=2, ensure_ascii=False)
-                                    })
                                     for tc in m.tool_calls:
                                         label = TOOL_LABELS.get(tc['name'], f"Ejecutando {tc['name']}...")
                                         status.update(label=label)
-                                        st.session_state.log_history.append({
-                                            "type": "tool_call",
-                                            "title": f"Tool invocada: {tc['name']}",
-                                            "content": TOOL_DESCRIPTIONS.get(tc['name'], tc['name']),
-                                            "details": json.dumps(tc['args'], indent=2, ensure_ascii=False)
-                                        })
                                 else:
                                     final_response = m.content
                                     status.update(label="Redactando respuesta...", state="running")
-                                    st.session_state.log_history.append({
-                                        "type": "llm_response",
-                                        "title": "LLM — Respuesta Final",
-                                        "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
-                                        "details": m.content
-                                    })
 
                             elif isinstance(m, ToolMessage):
                                 status.update(label="Procesando resultado...")
-                                char_count = len(m.content)
-                                st.session_state.log_history.append({
-                                    "type": "tool_response",
-                                    "title": f"Resultado de: {m.name}",
-                                    "content": f"La herramienta retornó <strong>{char_count} caracteres</strong> de datos al agente.",
-                                    "details": m.content[:4000]
-                                })
 
                 status.update(label="Respuesta lista", state="complete", expanded=False)
-
-            # Guardar traza de esta interacción
-            st.session_state.traces.append(list(st.session_state.log_history))
 
             # Mostrar la respuesta final
             if final_response:
@@ -1401,7 +1125,6 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
                 st.session_state.current_session_id,
                 st.session_state.session_name,
                 serialize_messages(st.session_state.chat_history),
-                st.session_state.log_history,
                 get_user_profile()
             )
 
