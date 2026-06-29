@@ -1,0 +1,434 @@
+{
+  "id": "85b8f6e9d3",
+  "name": "Hola",
+  "created_at": "2026-06-27T15:03:27.852759",
+  "updated_at": "2026-06-27T20:59:02.363106",
+  "chat_history": [
+    {
+      "type": "human",
+      "content": "Hola"
+    },
+    {
+      "type": "ai",
+      "content": "¡Hola! Bienvenido al proceso de onboarding corporativo. Estoy aquí para ayudarte en este proceso.\n\nPara comenzar, ¿podrías decirme cuál es tu nombre?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Me llamo Franco"
+    },
+    {
+      "type": "ai",
+      "content": "¡Genial Franco! Me alegra conocerte.\n\nAhora, ¿podrías decirme qué rol o posición ocupas en la empresa?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Desarrollador "
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! Como Desarrollador, seguramente tendrás habilidades y experiencia en programación.\n\n¿Cuál es tu nivel de seniority en tu carrera como Desarrollador? ¿Eres junior, medio o senior?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "1 año, soy junior"
+    },
+    {
+      "type": "ai",
+      "content": "¡Entendido! Con 1 año de experiencia, eres un Desarrollador junior.\n\n¿Cuál es tu horario laboral preferido? ¿Mañana, tarde o completo (9 a 18)?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Completo"
+    },
+    {
+      "type": "ai",
+      "content": "¡Genial! Horario completo de 9 a 18.\n\n¿Cuáles son tus preferencias en cuanto a trabajo en equipo, comunicación, herramientas, etc.? (por ejemplo, trabajo en equipo, comunicación asincrónica, uso de herramientas específicas)",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Trabajo en equipo y ahora estoy utilizando tecnologias como Java"
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! Trabajo en equipo y tecnologías como Java.\n\nAhora que tengo toda la información, puedo guardar tu perfil.\n\n",
+      "tool_calls": [
+        {
+          "name": "save_user_profile",
+          "args": {
+            "profile_data_json": "{\"nombre\": \"Franco\", \"rol\": \"Desarrollador\", \"seniority\": \"junior\", \"horario_laboral\": \"completo\", \"preferencias\": {\"trabajo_en_equipo\": true, \"tecnologias\": [\"Java\"]}}"
+          },
+          "id": "m7wqy7p35"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "¡Éxito! El perfil de usuario ha sido guardado correctamente. La Fase 1 (Descubrimiento y Perfilado) ha finalizado.",
+      "name": "save_user_profile",
+      "tool_call_id": "m7wqy7p35"
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! Tu perfil ha sido guardado correctamente.\n\nAhora que tenemos tu perfil, podemos avanzar con el proceso de onboarding. ¿Qué te gustaría hacer a continuación? ¿Quieres:\n\n1. Revisar políticas y procedimientos de la empresa (utilizando \"query_company_knowledge\")\n2. Agendar una reunión o evento en el calendario (utilizando \"insert_calendar_event\")\n3. Revisar tu disponibilidad en el calendario (utilizando \"get_calendar_events\" o \"find_available_slots\")\n\n¿Cuál es tu preferencia?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "1"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "políticas y procedimientos de la empresa para Desarrolladores"
+          },
+          "id": "j3x2eez5a"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "j3x2eez5a"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa para Desarrolladores.\n\n¿Quieres intentar buscar algo más específico? Por ejemplo, podrías preguntar sobre:\n\n* Políticas de seguridad de la información\n* Procedimientos de desarrollo de software\n* Guías de uso de herramientas y tecnologías específicas\n\n¿Cuál es tu próxima pregunta?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Quiero aprender sobre el uso de las herramientas y tecnologias"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "guía de uso de herramientas y tecnologías para Desarrolladores"
+          },
+          "id": "93ja57r0m"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "93ja57r0m"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa sobre la guía de uso de herramientas y tecnologías para Desarrolladores.\n\nSin embargo, puedo sugerirte que busques información en otros recursos, como:\n\n* Documentación oficial de las herramientas y tecnologías que utilizas (por ejemplo, Java)\n* Tutoriales y cursos en línea\n* Comunidades de desarrolladores y foros de discusión\n\n¿Quieres que te ayude a encontrar recursos en línea para aprender sobre Java?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Comentame sobre las politicas de trabajo"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "políticas de trabajo en equipo y colaboración para Desarrolladores"
+          },
+          "id": "cny1n8r05"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "cny1n8r05"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa sobre políticas de trabajo en equipo y colaboración para Desarrolladores.\n\nSin embargo, puedo sugerirte que algunas políticas comunes en empresas de tecnología incluyen:\n\n* Horarios flexibles y trabajo remoto\n* Comunicación abierta y transparente\n* Revisión y retroalimentación regular de código\n* Colaboración en proyectos y tareas\n\n¿Quieres que te ayude a encontrar información sobre políticas de trabajo en equipo y colaboración en general?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Comentame sobre las politicas de trabajo"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "políticas de trabajo"
+          },
+          "id": "crf47n16n"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "crf47n16n"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa sobre políticas de trabajo.\n\nSin embargo, puedo sugerirte que algunas políticas comunes en empresas incluyen:\n\n* Código de conducta y ética\n* Políticas de seguridad y privacidad\n* Horarios de trabajo y descansos\n* Procedimientos de reporte de incidentes y problemas\n\n¿Quieres que te ayude a encontrar información sobre políticas de trabajo en general?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Cuales son los valores corporativos de la empresa?"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "valores corporativos de la empresa"
+          },
+          "id": "8ay7a7sst"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "8ay7a7sst"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa sobre los valores corporativos.\n\nSin embargo, puedo sugerirte que algunos valores corporativos comunes en empresas incluyen:\n\n* Integridad\n* Innovación\n* Colaboración\n* Responsabilidad\n* Excelencia\n\n¿Quieres que te ayude a encontrar información sobre valores corporativos en general?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Agrega una reunion para aprender el curso de git el dia 29/06/2026, en algun horario que tenga disponible por la mañana. "
+    },
+    {
+      "type": "ai",
+      "content": "Para agregar una reunión para aprender el curso de Git el día 29/06/2026, necesito revisar la disponibilidad del calendario.\n\n",
+      "tool_calls": [
+        {
+          "name": "find_available_slots",
+          "args": {
+            "date": "2026-06-29",
+            "duration_minutes": 60
+          },
+          "id": "5amn35ayd"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Franjas horarias libres para el 2026-06-29 (09:00-18:00):\n- De 09:00 a 18:00",
+      "name": "find_available_slots",
+      "tool_call_id": "5amn35ayd"
+    },
+    {
+      "type": "ai",
+      "content": "Parece que todo el horario de 09:00 a 18:00 está disponible.\n\nVoy a agendar la reunión para aprender el curso de Git el día 29/06/2026 a las 09:00.\n\n",
+      "tool_calls": [
+        {
+          "name": "insert_calendar_event",
+          "args": {
+            "description": "Reunión para aprender sobre Git",
+            "end_time": "2026-06-29T10:00:00-03:00",
+            "start_time": "2026-06-29T09:00:00-03:00",
+            "title": "Curso de Git"
+          },
+          "id": "qf3yryqzk"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "¡Éxito! Evento 'Curso de Git' creado correctamente. Link: https://www.google.com/calendar/event?eid=bTc5MTk5MGtmOGN2bXJjODdzdGYxdDh1NmcgZnJhbmNveWNjQG0 | ID: m791990kf8cvmrc87stf1t8u6g",
+      "name": "insert_calendar_event",
+      "tool_call_id": "qf3yryqzk"
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! La reunión para aprender sobre Git ha sido agendada correctamente para el 29 de junio de 2026 a las 09:00.\n\nPuedes acceder al enlace para unirte a la reunión: https://www.google.com/calendar/event?eid=bTc5MTk5MGtmOGN2bXJjODdzdGYxdDh1NmcgZnJhbmNveWNjQG0 | ID: m791990kf8cvmrc87stf1t8u6g\n\n¿Quieres agendar otra reunión o evento?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Soy el nuevo desarrollador Junior. El lunes 27/06 es mi primer día de trabajo. Por favor, buscá en el manual de onboarding qué tareas debo hacer en mi primer semana. Luego, revisá si tengo espacio libre en mi calendario y, si es así, agendame un bloque de tiempo para hacer las tareas específicas."
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "tareas para primer semana de trabajo como Desarrollador Junior"
+          },
+          "id": "ndzjmm6hd"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No se encontró información relevante en los manuales.",
+      "name": "query_company_knowledge",
+      "tool_call_id": "ndzjmm6hd"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, no se encontró información relevante en los manuales de la empresa sobre tareas para la primer semana de trabajo como Desarrollador Junior.\n\nSin embargo, puedo sugerirte que algunas tareas comunes para un Desarrollador Junior en su primer semana incluyen:\n\n* Configuración del entorno de desarrollo\n* Revisión de la documentación y políticas de la empresa\n* Conocimiento del equipo y roles\n* Configuración de herramientas y tecnologías\n\n¿Quieres que te ayude a encontrar información sobre estas tareas en general?\n\n(Además, revisaré tu calendario para agendar un bloque de tiempo para estas tareas)",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Soy el nuevo desarrollador Junior. El lunes 27/06 es mi primer día de trabajo. Por favor, buscá en el manual de onboarding qué tareas debo hacer en mi primer semana. Luego, revisá si tengo espacio libre en mi calendario y, si es así, agendame un bloque de tiempo para hacer las tareas específicas."
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_user_profile",
+          "args": {
+            "query": "horario laboral"
+          },
+          "id": "0qw0vn120"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Perfil y Rutina del Usuario:\n{\n  \"nombre\": \"Franco\",\n  \"rol\": \"Desarrollador\",\n  \"seniority\": \"junior\",\n  \"horario_laboral\": \"completo\",\n  \"preferencias\": {\n    \"trabajo_en_equipo\": true,\n    \"tecnologias\": [\n      \"Java\"\n    ]\n  }\n}",
+      "name": "query_user_profile",
+      "tool_call_id": "0qw0vn120"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "get_calendar_events",
+          "args": {
+            "end_time": "2026-06-27T18:00:00-03:00",
+            "start_time": "2026-06-27T09:00:00-03:00"
+          },
+          "id": "sxy674pxn"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "No hay eventos agendados en ese rango horario. Está totalmente libre.",
+      "name": "get_calendar_events",
+      "tool_call_id": "sxy674pxn"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "insert_calendar_event",
+          "args": {
+            "description": "Tareas de primer semana como Desarrollador Junior",
+            "end_time": "2026-06-27T12:00:00-03:00",
+            "start_time": "2026-06-27T09:00:00-03:00",
+            "title": "Primer Día de Trabajo - Tareas"
+          },
+          "id": "5wp4jx8p4"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "¡Éxito! Evento 'Primer Día de Trabajo - Tareas' creado correctamente. Link: https://www.google.com/calendar/event?eid=dWluYzAxZjl1amVkc3ZsZG1saGhqbWQ5Mm8gZnJhbmNveWNjQG0 | ID: uinc01f9ujedsvldmlhhjmd92o",
+      "name": "insert_calendar_event",
+      "tool_call_id": "5wp4jx8p4"
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! Un bloque de tiempo ha sido agendado para ti en tu primer día de trabajo (27/06) de 09:00 a 12:00 para realizar las tareas de configuración y revisión.\n\nPuedes acceder al enlace para ver el evento en tu calendario: https://www.google.com/calendar/event?eid=dWluYzAxZjl1amVkc3ZsZG1saGhqbWQ5Mm8gZnJhbmNveWNjQG0 | ID: uinc01f9ujedsvldmlhhjmd92o\n\n¿Quieres agendar otra reunión o evento?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "Continua con la agenda del dia 1. Me asignaste una sola tarea "
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "find_available_slots",
+          "args": {
+            "date": "2026-06-27",
+            "duration_minutes": 60
+          },
+          "id": "9typfvag1"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Franjas horarias libres para el 2026-06-27 (09:00-18:00):\n- De 15:00 a 18:00",
+      "name": "find_available_slots",
+      "tool_call_id": "9typfvag1"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "insert_calendar_event",
+          "args": {
+            "description": "Revisión de documentación y políticas de la empresa",
+            "end_time": "2026-06-27T16:00:00-03:00",
+            "start_time": "2026-06-27T15:00:00-03:00",
+            "title": "Revisión de Documentación"
+          },
+          "id": "46kt74cb6"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "¡Éxito! Evento 'Revisión de Documentación' creado correctamente. Link: https://www.google.com/calendar/event?eid=dDNiZGVvNXRnMmlxcm1sZ2E5ZWdtcjI5aDQgZnJhbmNveWNjQG0 | ID: t3bdeo5tg2iqrmlga9egmr29h4",
+      "name": "insert_calendar_event",
+      "tool_call_id": "46kt74cb6"
+    },
+    {
+      "type": "ai",
+      "content": "¡Excelente! Otro bloque de tiempo ha sido agendado para ti en tu primer día de trabajo (27/06) de 15:00 a 16:00 para revisar la documentación y políticas de la empresa.\n\nPuedes acceder al enlace para ver el evento en tu calendario: https://www.google.com/calendar/event?eid=dDNiZGVvNXRnMmlxcm1sZ2E5ZWdtcjI5aDQgZnJhbmNveWNjQG0 | ID: t3bdeo5tg2iqrmlga9egmr29h4\n\nTu agenda para el día 1 ahora es:\n\n* 09:00-12:00: Tareas de configuración y revisión\n* 15:00-16:00: Revisión de documentación y políticas de la empresa\n\n¿Quieres agendar otra reunión o evento?",
+      "tool_calls": []
+    }
+  ],
+  "traces": [],
+  "profile": {
+    "nombre": "Franco",
+    "rol": "Desarrollador",
+    "seniority": "junior",
+    "horario_laboral": "completo",
+    "preferencias": {
+      "trabajo_en_equipo": true,
+      "tecnologias": [
+        "Java"
+      ]
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "nombre": "Franco",
+  "rol": "Desarrollador",
+  "seniority": "junior",
+  "horario_laboral": "completo",
+  "preferencias": {
+    "trabajo_en_equipo": true,
+    "tecnologias": [
+      "Java"
+    ]
+  }
+}
