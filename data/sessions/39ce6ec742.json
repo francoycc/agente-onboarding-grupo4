@@ -1,0 +1,37 @@
+{
+  "id": "39ce6ec742",
+  "name": "Hola, deseo capacitarme en Git y Java el...",
+  "created_at": "2026-06-27T17:25:57.992468",
+  "updated_at": "2026-06-27T17:33:01.304158",
+  "chat_history": [
+    {
+      "type": "human",
+      "content": "Hola, deseo capacitarme en Git y Java el 30 de junio de 2026 por la mañana. ¿Me podrías organizar el día y agendar los cursos correspondientes?"
+    }
+  ],
+  "log_history": [
+    {
+      "type": "user_input",
+      "title": "Consulta del Usuario",
+      "content": "Mensaje recibido y enviado al agente.",
+      "details": "Hola, deseo capacitarme en Git y Java el 30 de junio de 2026 por la mañana. ¿Me podrías organizar el día y agendar los cursos correspondientes?"
+    }
+  ],
+  "traces": [
+    [
+      {
+        "type": "user_input",
+        "title": "Consulta del Usuario",
+        "content": "Mensaje recibido y enviado al agente.",
+        "details": "Hola, deseo capacitarme en Git y Java el 30 de junio de 2026 por la mañana. ¿Me podrías organizar el día y agendar los cursos correspondientes?"
+      }
+    ]
+  ],
+  "profile": {
+    "nombre": "Valentino",
+    "rol": "ayudante de infraestructura",
+    "seniority": "junior",
+    "horario_laboral": "8am-12pm, lunes, miércoles y viernes",
+    "preferencias": "comunicación por correo electrónico"
+  }
+}

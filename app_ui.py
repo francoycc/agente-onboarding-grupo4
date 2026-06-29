@@ -13,27 +13,6 @@ load_dotenv()
 logging.basicConfig(level=logging.INFO)
 
 # ──────────────────────────────────────────────
-# OBSERVABILIDAD: ARIZE PHOENIX
-# ──────────────────────────────────────────────
-@st.cache_resource
-def init_phoenix_instrumentation():
-    from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
-    from opentelemetry.sdk.trace import TracerProvider
-    from opentelemetry.sdk.trace.export import SimpleSpanProcessor
-    from opentelemetry import trace
-    from openinference.instrumentation.langchain import LangChainInstrumentor
-
-    endpoint = "http://127.0.0.1:6006/v1/traces"
-    tracer_provider = TracerProvider()
-    tracer_provider.add_span_processor(SimpleSpanProcessor(OTLPSpanExporter(endpoint)))
-    trace.set_tracer_provider(tracer_provider)
-    
-    LangChainInstrumentor().instrument()
-    return "http://localhost:6006"
-
-phoenix_url = init_phoenix_instrumentation()
-
-# ──────────────────────────────────────────────
 # CONFIGURACIÓN DE PÁGINA
 # ──────────────────────────────────────────────
 st.set_page_config(
@@ -48,7 +27,7 @@ st.set_page_config(
 # ──────────────────────────────────────────────
 st.markdown("""
 <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght=300;400;500;600;700;800;900&display=swap');
 
     /* ── Ocultar solo elementos innecesarios ── */
     #MainMenu {display:none !important;}
@@ -253,8 +232,8 @@ st.markdown("""
         transform: translateX(3px);
         background: rgba(30,41,59,0.5);
     }
-    .trace-item.tool-call  {border-left-color: #fbbf24;}
-    .trace-item.tool-resp  {border-left-color: #34d399;}
+    .trace-item.tool-call   {border-left-color: #fbbf24;}
+    .trace-item.tool-resp   {border-left-color: #34d399;}
     .trace-item .trace-title {
         font-weight: 600;
         color: #f1f5f9;
@@ -406,15 +385,15 @@ st.markdown("""
         color: #64748b;
         margin-top: 3px;
     }
+
     /* Diagrama arquitectura */
     .obs-arch-flow {
         display: flex;
         align-items: stretch;
         justify-content: center;
-        gap: 0;
+        gap: 8px;
         margin-bottom: 20px;
         flex-wrap: wrap;
-        gap: 8px;
     }
     .obs-arch-node {
         text-align: center;
@@ -437,67 +416,7 @@ st.markdown("""
     .obs-rag    { background: rgba(16,185,129,0.12); border-color: rgba(16,185,129,0.3); }
     .obs-cal    { background: rgba(251,113,133,0.12); border-color: rgba(251,113,133,0.3); }
     .obs-profile{ background: rgba(14,165,233,0.12); border-color: rgba(14,165,233,0.3); }
-    .obs-arch-conn {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 3px;
-        padding: 0 6px;
-        flex-shrink: 0;
-    }
-    .obs-arch-line {
-        width: 32px; height: 2px;
-        background: linear-gradient(90deg, rgba(129,140,248,0.3), rgba(129,140,248,0.8));
-        border-radius: 2px;
-    }
-    .obs-arch-arrowhead {
-        font-size: 0.75rem;
-        color: rgba(129,140,248,0.7);
-        margin-top: -3px;
-    }
-    .obs-arch-conn-label {
-        font-size: 0.58rem;
-        color: #475569;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-    }
-    .obs-tools-separator {
-        text-align: center;
-        font-size: 0.68rem;
-        color: #475569;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        margin: 16px 0 12px 0;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-    }
-    .obs-tools-separator::before, .obs-tools-separator::after {
-        content: '';
-        flex: 1;
-        height: 1px;
-        background: rgba(255,255,255,0.06);
-    }
-    .obs-arch-tools-row {
-        display: flex;
-        gap: 10px;
-        justify-content: center;
-        flex-wrap: wrap;
-    }
-    .obs-arch-tool {
-        text-align: center;
-        padding: 14px 16px;
-        border-radius: 14px;
-        border: 1px solid;
-        min-width: 140px;
-        flex: 1;
-        max-width: 200px;
-        transition: transform 0.2s ease;
-    }
-    .obs-arch-tool:hover { transform: translateY(-3px); }
+
     /* Traza timeline */
     .obs-step {
         display: flex;
@@ -555,132 +474,8 @@ st.markdown("""
         color: #94a3b8;
         line-height: 1.5;
     }
-    /* Tech tags */
-    .obs-tech-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        margin-top: 18px;
-        padding-top: 16px;
-        border-top: 1px solid rgba(255,255,255,0.05);
-    }
-    .obs-tech-tag {
-        font-size: 0.67rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: #64748b;
-    }
-    /* Backward compat: keep old wf-* classes as stubs so nothing breaks */
-    .workflow-panel {
-        background: linear-gradient(135deg, rgba(15,23,42,0.95), rgba(10,14,26,0.98));
-        border: 1px solid rgba(129,140,248,0.25);
-        border-radius: 20px;
-        padding: 28px 32px;
-        margin-bottom: 28px;
-        animation: panelIn 0.4s cubic-bezier(0.16,1,0.3,1) forwards;
-        backdrop-filter: blur(20px);
-    }
-    @keyframes panelIn {
-        from {opacity:0; transform:translateY(-16px);}
-        to   {opacity:1; transform:translateY(0);}
-    }
-    .wf-title {
-        font-size: 1.1rem;
-        font-weight: 800;
-        color: #f1f5f9;
-        letter-spacing: -0.02em;
-        margin-bottom: 4px;
-    }
-    .wf-subtitle {
-        font-size: 0.8rem;
-        color: #64748b;
-        margin-bottom: 24px;
-    }
-    /* Nodos del diagrama */
-    .wf-diagram {
-        display: flex;
-        align-items: center;
-        gap: 0;
-        overflow-x: auto;
-        padding: 8px 0 16px 0;
-        flex-wrap: nowrap;
-    }
-    .wf-node {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 8px;
-        min-width: 100px;
-        flex-shrink: 0;
-    }
-    .wf-node-box {
-        width: 88px;
-        height: 72px;
-        border-radius: 14px;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 4px;
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        border: 1px solid;
-        transition: transform 0.2s ease, box-shadow 0.2s ease;
-    }
-    .wf-node-box:hover {
-        transform: translateY(-3px);
-        box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-    }
-    .wf-node-icon { font-size: 1.4rem; }
-    .wf-node-label { font-size: 0.85rem; color: #94a3b8; font-weight: 500; text-transform: none; letter-spacing: 0; }
-    /* Colores por nodo */
-    .wf-ui    { background: rgba(99,102,241,0.15); border-color: rgba(99,102,241,0.4); color: #a5b4fc; }
-    .wf-agent { background: rgba(192,132,252,0.15); border-color: rgba(192,132,252,0.4); color: #d8b4fe; }
-    .wf-llm   { background: rgba(251,191,36,0.12);  border-color: rgba(251,191,36,0.35); color: #fde68a; }
-    .wf-rag   { background: rgba(52,211,153,0.12);  border-color: rgba(52,211,153,0.35); color: #6ee7b7; }
-    .wf-cal   { background: rgba(251,113,133,0.12); border-color: rgba(251,113,133,0.35); color: #fda4af; }
-    /* Flechas */
-    .wf-arrow {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 2px;
-        padding: 0 4px;
-        flex-shrink: 0;
-    }
-    .wf-arrow-line {
-        width: 36px;
-        height: 2px;
-        background: linear-gradient(90deg, rgba(129,140,248,0.4), rgba(129,140,248,0.8));
-        border-radius: 2px;
-        position: relative;
-    }
-    .wf-arrow-label {
-        font-size: 0.6rem;
-        color: #475569;
-        font-weight: 600;
-        letter-spacing: 0.05em;
-        white-space: nowrap;
-    }
-    /* Sección de traza viva */
-    .wf-trace-section {
-        margin-top: 24px;
-        border-top: 1px solid rgba(255,255,255,0.06);
-        padding-top: 20px;
-    }
-    .wf-trace-title {
-        font-size: 0.75rem;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: #475569;
-        font-weight: 700;
-        margin-bottom: 12px;
-    }
+
+    /* Expander e Historial de Trazas */
     .wf-step {
         display: flex;
         gap: 12px;
@@ -715,24 +510,6 @@ st.markdown("""
         font-size: 0.78rem;
         color: #cbd5e1;
     }
-    /* Leyenda tecnologías */
-    .wf-tech-row {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 8px;
-        margin-top: 20px;
-        border-top: 1px solid rgba(255,255,255,0.05);
-        padding-top: 16px;
-    }
-    .wf-tech-badge {
-        font-size: 0.68rem;
-        font-weight: 600;
-        padding: 4px 10px;
-        border-radius: 20px;
-        background: rgba(255,255,255,0.04);
-        border: 1px solid rgba(255,255,255,0.1);
-        color: #64748b;
-    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -762,7 +539,7 @@ def load_sessions_index() -> list[dict]:
     sessions.sort(key=lambda s: s.get("updated_at", ""), reverse=True)
     return sessions
 
-def save_session(session_id: str, name: str, chat_history_serialized: list, profile: dict | None):
+def save_session(session_id: str, name: str, chat_history_serialized: list, log_history: list, profile: dict | None):
     """Persiste la sesión actual a disco."""
     data = {
         "id": session_id,
@@ -770,6 +547,7 @@ def save_session(session_id: str, name: str, chat_history_serialized: list, prof
         "created_at": st.session_state.get("session_created_at", datetime.now().isoformat()),
         "updated_at": datetime.now().isoformat(),
         "chat_history": chat_history_serialized,
+        "log_history": log_history,
         "traces": st.session_state.get("traces", []),
         "profile": profile,
     }
@@ -781,20 +559,52 @@ def delete_session(session_id: str):
     if os.path.exists(path):
         os.remove(path)
 
+
+# ──────────────────────────────────────────────
+# DETECCIÓN ROBUSTA DE TIPOS DE MENSAJES (MANDATORIO PARA HOT-RELOADS)
+# ──────────────────────────────────────────────
+def get_msg_type(msg) -> str:
+    """Retorna el tipo de mensaje de forma robusta ('human', 'ai', 'tool', 'system').
+    Esto evita que los reloads asíncronos de Streamlit rompan isinstance()."""
+    # 1. Atributo explícito de LangChain
+    msg_type = getattr(msg, "type", None)
+    if msg_type:
+        return str(msg_type).lower()
+    
+    # 2. Caída por herencia de clase si se pierden las referencias
+    class_name = msg.__class__.__name__.lower()
+    if "human" in class_name:
+        return "human"
+    elif "ai" in class_name:
+        return "ai"
+    elif "tool" in class_name:
+        return "tool"
+    elif "system" in class_name:
+        return "system"
+    return ""
+
+
 def serialize_messages(messages: list) -> list:
-    """Convierte los objetos de LangChain a dicts serializables."""
+    """Convierte los objetos de LangChain a dicts serializables de forma robusta."""
     out = []
     for m in messages:
-        if isinstance(m, HumanMessage):
+        m_type = get_msg_type(m)
+        if m_type == "human":
             out.append({"type": "human", "content": m.content})
-        elif isinstance(m, AIMessage):
+        elif m_type == "ai":
             tc = []
-            if m.tool_calls:
-                for t in m.tool_calls:
+            tool_calls = getattr(m, "tool_calls", [])
+            if tool_calls:
+                for t in tool_calls:
                     tc.append({"name": t["name"], "args": t["args"], "id": t.get("id", "")})
             out.append({"type": "ai", "content": m.content, "tool_calls": tc})
-        elif isinstance(m, ToolMessage):
-            out.append({"type": "tool", "content": m.content, "name": getattr(m, "name", ""), "tool_call_id": getattr(m, "tool_call_id", "")})
+        elif m_type == "tool":
+            out.append({
+                "type": "tool", 
+                "content": m.content, 
+                "name": getattr(m, "name", ""), 
+                "tool_call_id": getattr(m, "tool_call_id", "")
+            })
     return out
 
 def deserialize_messages(data: list) -> list:
@@ -820,6 +630,10 @@ if "current_session_id" not in st.session_state:
     st.session_state.current_session_id = None
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
+if "log_history" not in st.session_state:
+    st.session_state.log_history = []
+if "traces" not in st.session_state:
+    st.session_state.traces = []  # trazas de observabilidad
 if "session_name" not in st.session_state:
     st.session_state.session_name = ""
 if "session_created_at" not in st.session_state:
@@ -830,30 +644,35 @@ def start_new_session():
     sid = uuid.uuid4().hex[:10]
     st.session_state.current_session_id = sid
     st.session_state.chat_history = []
+    st.session_state.log_history = []
+    st.session_state.traces = []
     st.session_state.session_name = f"Chat {datetime.now().strftime('%d/%m %H:%M')}"
     st.session_state.session_created_at = datetime.now().isoformat()
     st.session_state.thread_id = sid
 
 
 def _on_new_chat_click():
-    """Callback for the 'Nuevo Chat' button — saves current session, then starts fresh."""
-    # Save current session if it has messages
+    """Guarda la sesión actual y arranca una limpia."""
     if st.session_state.get("current_session_id") and st.session_state.get("chat_history"):
         save_session(
             st.session_state.current_session_id,
             st.session_state.session_name,
             serialize_messages(st.session_state.chat_history),
+            st.session_state.log_history,
             get_user_profile()
         )
     start_new_session()
-    # Flag to show toast after rerun
     st.session_state._show_new_chat_toast = True
 
 def switch_session(session_data: dict):
     st.session_state.current_session_id = session_data["id"]
     st.session_state.chat_history = deserialize_messages(session_data.get("chat_history", []))
+    st.session_state.log_history = session_data.get("log_history", [])
+    st.session_state.traces = session_data.get("traces", [])
     st.session_state.session_name = session_data.get("name", "Sin nombre")
     st.session_state.session_created_at = session_data.get("created_at", datetime.now().isoformat())
+    
+    # Restaurar perfil si la sesión lo tenía
     profile = session_data.get("profile")
     if profile:
         os.makedirs("data", exist_ok=True)
@@ -861,7 +680,6 @@ def switch_session(session_data: dict):
             json.dump(profile, f, indent=2, ensure_ascii=False)
 
 
-# Función auxiliar para comprobar perfil
 def get_user_profile():
     file_path = "data/user_profile.json"
     if os.path.exists(file_path):
@@ -877,7 +695,6 @@ def get_user_profile():
 # SIDEBAR
 # ──────────────────────────────────────────────
 with st.sidebar:
-    # Logo / Branding
     st.markdown("""
     <div style="display:flex; align-items:center; gap:10px; padding:4px 0 20px 0;">
         <div style="width:36px;height:36px;border-radius:10px;
@@ -890,31 +707,30 @@ with st.sidebar:
     </div>
     """, unsafe_allow_html=True)
 
-    # Botón Nuevo Chat (usa callback para rerun confiable)
-    st.button("＋  Nuevo Chat", use_container_width=True, key="btn_new_chat", on_click=_on_new_chat_click)
+    # Botón Nuevo Chat
+    st.button("＋   Nuevo Chat", use_container_width=True, key="btn_new_chat", on_click=_on_new_chat_click)
 
-    # Toast de confirmación al crear nuevo chat
+    # Toast de confirmación
     if st.session_state.pop("_show_new_chat_toast", False):
         st.toast("Nuevo chat creado", icon="✨")
 
-    # Lista de sesiones
+    # Lista de sesiones históricas
     sessions = load_sessions_index()
     if sessions:
         st.markdown('<div class="sidebar-section-title">Conversaciones</div>', unsafe_allow_html=True)
 
         def _on_switch_session(sess_data):
-            """Callback to switch to a different session."""
             if st.session_state.get("current_session_id") and st.session_state.get("chat_history"):
                 save_session(
                     st.session_state.current_session_id,
                     st.session_state.session_name,
                     serialize_messages(st.session_state.chat_history),
+                    st.session_state.log_history,
                     get_user_profile()
                 )
             switch_session(sess_data)
 
         def _on_delete_session(sess_id):
-            """Callback to delete a session."""
             delete_session(sess_id)
             if sess_id == st.session_state.current_session_id:
                 start_new_session()
@@ -930,7 +746,7 @@ with st.sidebar:
                 st.button("✕", key=f"del_{sess['id']}",
                           on_click=_on_delete_session, args=(sess["id"],))
 
-    # ── Separador y Fase ──
+    # Estado del agente
     st.markdown('<div class="sidebar-section-title">Estado del Agente</div>', unsafe_allow_html=True)
 
     profile = get_user_profile()
@@ -959,9 +775,33 @@ with st.sidebar:
         card_html += '</div>'
         st.markdown(card_html, unsafe_allow_html=True)
 
-    # ── Estadísticas de la sesión ──
+    # Trazas de observabilidad
+    st.markdown('<div class="sidebar-section-title">Trazas ReAct</div>', unsafe_allow_html=True)
+    if not st.session_state.log_history:
+        st.caption("Sin actividad aún en este turno.")
+    else:
+        for log in st.session_state.log_history:
+            ltype = log.get("type", "")
+            if ltype == "user_input":
+                icon, css_class = "▸", ""
+            elif ltype in ("llm_decision", "llm_response", "thought"):
+                icon, css_class = "🧠", ""
+            elif ltype == "tool_call":
+                icon, css_class = "⚡", "tool-call"
+            else:
+                icon, css_class = "↩", "tool-resp"
+            st.markdown(f"""
+            <div class="trace-item {css_class}">
+                <div class="trace-title">{icon} {log['title']}</div>
+                <div class="trace-body">{log['content']}</div>
+            </div>
+            """, unsafe_allow_html=True)
+
+    # Estadísticas de sesión
     st.markdown('<div class="sidebar-section-title">Estadísticas</div>', unsafe_allow_html=True)
-    human_msgs = [m for m in st.session_state.chat_history if isinstance(m, HumanMessage)]
+    human_msgs = [m for m in st.session_state.chat_history if get_msg_type(m) == "human"]
+    tools_used = [log["title"].replace("Acción: ", "") for log in st.session_state.log_history if log["type"] == "tool_call"]
+    tools_unique = list(dict.fromkeys(tools_used))
     session_start = st.session_state.get("session_created_at", datetime.now().isoformat())
     try:
         delta = datetime.now() - datetime.fromisoformat(session_start)
@@ -974,22 +814,26 @@ with st.sidebar:
     <div class="profile-card" style="margin-top:4px;">
         <div class="field-label">Mensajes enviados</div>
         <div class="field-value">{len(human_msgs)}</div>
+        <div class="field-label">Herramientas usadas</div>
+        <div class="field-value">{', '.join(tools_unique) if tools_unique else '—'}</div>
         <div class="field-label">Duración sesión</div>
         <div class="field-value">{duration_str}</div>
     </div>
     """
     st.markdown(stats_html, unsafe_allow_html=True)
 
-    # Acciones de sesión
+    # Acciones de reset
     st.markdown('<div class="sidebar-section-title">Acciones</div>', unsafe_allow_html=True)
 
     def _on_clear_chat():
         st.session_state.chat_history = []
+        st.session_state.log_history = []
 
     def _on_reset_profile():
         if os.path.exists("data/user_profile.json"):
             os.remove("data/user_profile.json")
         st.session_state.chat_history = []
+        st.session_state.log_history = []
 
     col1, col2 = st.columns(2)
     with col1:
@@ -997,9 +841,56 @@ with st.sidebar:
     with col2:
         st.button("Reiniciar Perfil", use_container_width=True, key="btn_reset", on_click=_on_reset_profile)
 
-    # Observabilidad
-    st.markdown('<div class="sidebar-section-title">Observabilidad</div>', unsafe_allow_html=True)
-    st.info(f"📊 **[Abrir Dashboard de Phoenix]({phoenix_url})**")
+
+# ──────────────────────────────────────────────
+# RENDERIZAR TRAZA INLINE (POR MENSAJE)
+# ──────────────────────────────────────────────
+def render_trace_inline(trace_steps: list):
+    """Dibuja de forma amigable e interactiva el flujo de decisiones técnicas por mensaje."""
+    st.markdown("---")
+    st.markdown("**Flujo de Ejecución (Observabilidad Técnica):**")
+    
+    for i, step in enumerate(trace_steps):
+        ltype = step.get("type", "")
+        title = step.get("title", "")
+        content = step.get("content", "")
+        details = step.get("details", "")
+
+        import re
+        content_plain = re.sub(r"<[^>]+>", "", content)
+
+        if ltype == "user_input":
+            st.markdown(f"**Paso {i+1}: Entrada del Usuario**")
+            st.code(details or content_plain, language="text")
+
+        elif ltype == "llm_decision":
+            st.markdown(f"**Paso {i+1}: LLM - Razonamiento y Llamada a Herramientas**")
+            st.markdown("*El LLM decidió utilizar las siguientes herramientas:*")
+            if details:
+                st.code(details, language="json")
+
+        elif ltype == "tool_call":
+            st.markdown(f"**Paso {i+1}: Herramienta - Invocación (Entrada)**")
+            st.markdown(f"Función Invocada: `{title}`")
+            if details:
+                st.markdown("*Argumentos (Input):*")
+                st.code(details, language="json")
+
+        elif ltype == "tool_response":
+            st.markdown(f"**Paso {i+1}: Herramienta - Resultado (Salida)**")
+            if details:
+                st.markdown("*Respuesta de la Herramienta (Output):*")
+                display = details if len(details) <= 2000 else details[:2000] + "\n\n... [Contenido truncado a 2000 caracteres]"
+                st.code(display, language="text")
+
+        elif ltype in ("llm_response", "thought"):
+            st.markdown(f"**Paso {i+1}: LLM - Generación de Respuesta Final**")
+            st.markdown("*Respuesta pura generada por el LLM:*")
+            if details:
+                st.code(details, language="markdown")
+
+        if i < len(trace_steps) - 1:
+            st.markdown("---")
 
 
 # ──────────────────────────────────────────────
@@ -1014,22 +905,51 @@ if st.session_state.current_session_id is None:
 st.markdown('<div class="hero-title">Mentor de Onboarding</div>', unsafe_allow_html=True)
 st.markdown('<div class="hero-sub">Asistente autónomo con razonamiento multi-paso · LangGraph · RAG · Google Calendar</div>', unsafe_allow_html=True)
 
-# Renderizar historial de chat
 chat_container = st.container()
 with chat_container:
     has_messages = False
+    ai_response_idx = 0  # mapear AI responses con sus trazas
+    
+    # Calcular offsets para renderizado de trazas históricas
+    total_ai_msgs = sum(1 for msg in st.session_state.chat_history if get_msg_type(msg) == "ai" and msg.content and not getattr(msg, "tool_calls", []))
+    traces_len = len(st.session_state.traces)
+    offset = total_ai_msgs - traces_len
+
+    def _toggle_trace_view(key: str):
+        st.session_state[key] = not st.session_state.get(key, False)
+
     for msg in st.session_state.chat_history:
-        if isinstance(msg, HumanMessage):
+        m_type = get_msg_type(msg)
+        if m_type == "human":
             has_messages = True
             with st.chat_message("user"):
                 st.markdown(msg.content)
-        elif isinstance(msg, AIMessage):
-            if msg.content and not msg.tool_calls:
+        elif m_type == "ai":
+            tool_calls = getattr(msg, "tool_calls", [])
+            if msg.content and not tool_calls:
                 has_messages = True
                 with st.chat_message("assistant"):
                     st.markdown(msg.content)
+                    
+                    # Botón de traza por mensaje
+                    trace_idx = ai_response_idx - offset
+                    has_trace = 0 <= trace_idx < traces_len
+                    if has_trace:
+                        trace_key = f"trace_visible_{trace_idx}"
+                        is_open = st.session_state.get(trace_key, False)
+                        btn_label = "Ocultar flujo de trabajo" if is_open else "Ver flujo de trabajo"
+                        st.button(
+                            btn_label,
+                            key=f"trace_btn_{trace_idx}",
+                            on_click=_toggle_trace_view,
+                            args=(trace_key,)
+                        )
+                        if is_open:
+                            with st.container():
+                                render_trace_inline(st.session_state.traces[trace_idx])
+                ai_response_idx += 1
 
-    # Empty state cuando no hay mensajes
+    # Estado vacío (Bienvenida)
     if not has_messages:
         st.markdown("""
         <div class="empty-state">
@@ -1037,26 +957,35 @@ with chat_container:
             <div class="empty-title">¡Hola! Soy tu Mentor de Onboarding</div>
             <div class="empty-desc">
                 Estoy aquí para guiarte en tu proceso de inducción corporativa.
-                Pregúntame sobre políticas de la empresa, cursos, o pedime que organice tu agenda.
+                Pregúntame sobre políticas de la empresa, cursos, o pídeme que organice tu agenda de forma inteligente.
             </div>
         </div>
         """, unsafe_allow_html=True)
 
-# Entrada de mensaje
-if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
+
+# Entrada de mensaje por Chat Input
+if user_query := st.chat_input("Escribe tu consulta de onboarding acá..."):
     with st.chat_message("user"):
         st.markdown(user_query)
 
     st.session_state.chat_history.append(HumanMessage(content=user_query))
 
-    # Auto-nombrar la sesión con el primer mensaje
-    if st.session_state.session_name.startswith("Chat ") and len([m for m in st.session_state.chat_history if isinstance(m, HumanMessage)]) == 1:
+    # Auto-nombrar la sesión con las primeras palabras
+    if st.session_state.session_name.startswith("Chat ") and len([m for m in st.session_state.chat_history if get_msg_type(m) == "human"]) == 1:
         st.session_state.session_name = user_query[:40] + ("..." if len(user_query) > 40 else "")
 
     with st.chat_message("assistant"):
         response_placeholder = st.empty()
+        st.session_state.log_history = []
 
-        # ── Labels amigables para el indicador de progreso ──
+        # Registrar entrada del usuario
+        st.session_state.log_history.append({
+            "type": "user_input",
+            "title": "Consulta del Usuario",
+            "content": "Mensaje recibido y enviado al agente.",
+            "details": user_query
+        })
+
         TOOL_LABELS = {
             "query_company_knowledge": "Consultando manuales de la empresa...",
             "query_user_profile":      "Leyendo tu perfil...",
@@ -1068,29 +997,22 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
             "find_available_slots":    "Buscando horarios libres...",
         }
         TOOL_DESCRIPTIONS = {
-            "query_company_knowledge": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings HuggingFace (all-MiniLM-L6-v2). Recupera los fragmentos del manual más relevantes para la consulta.",
+            "query_company_knowledge": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
             "query_user_profile":      "Lee el perfil del empleado guardado localmente en data/user_profile.json.",
-            "save_user_profile":       "Persiste el perfil del empleado (nombre, rol, seniority, horario, preferencias) en data/user_profile.json.",
-            "get_calendar_events":     "Obtiene los eventos de Google Calendar del usuario en un rango de fechas vía API REST.",
-            "insert_calendar_event":   "Crea un nuevo evento en Google Calendar con título, descripción, hora de inicio y fin.",
-            "delete_calendar_event":   "Busca y elimina un evento en Google Calendar por nombre y fecha.",
-            "update_calendar_event":   "Modifica campos específicos de un evento existente en Google Calendar.",
-            "find_available_slots":    "Analiza el calendario del usuario y encuentra horarios disponibles en un día dado.",
+            "save_user_profile":       "Persiste el perfil del empleado en data/user_profile.json.",
+            "get_calendar_events":     "Obtiene los eventos de Google Calendar en un rango horario mediante OAuth2.",
+            "insert_calendar_event":   "Registra un nuevo evento en Google Calendar validando superposiciones.",
+            "delete_calendar_event":   "Elimina un evento del calendario buscándolo por nombre y fecha.",
+            "update_calendar_event":   "Modifica campos específicos de un evento existente en el calendario.",
+            "find_available_slots":    "Busca franjas horarias libres dentro del horario laboral (09:00 a 18:00).",
         }
 
-        def _is_rate_limit(err: Exception) -> bool:
-            s = str(err).lower()
-            return "429" in s or "rate_limit" in s or "rate limit" in s
-
-        def _is_tool_fail(err: Exception) -> bool:
-            s = str(err).lower()
-            return "400" in s or "tool_use_failed" in s
+        # CORRECCIÓN CLAVE: Cambiamos .messages por .chat_history
+        inputs = {"messages": st.session_state.chat_history}
+        llm_round = 0
+        final_response = ""
 
         try:
-            inputs = {"messages": st.session_state.chat_history}
-            final_response = ""
-            llm_round = 0
-
             with st.status("Pensando...", expanded=False) as status:
                 for event in app.stream(inputs):
                     for node_name, value in event.items():
@@ -1098,33 +1020,69 @@ if user_query := st.chat_input("Escribí tu consulta de onboarding acá..."):
                             continue
                         for m in value["messages"]:
                             st.session_state.chat_history.append(m)
+                            m_type = get_msg_type(m)
 
-                            if isinstance(m, AIMessage):
-                                if m.tool_calls:
+                            if m_type == "ai":
+                                tool_calls = getattr(m, "tool_calls", [])
+                                if tool_calls:
                                     llm_round += 1
-                                    tool_names = [tc['name'] for tc in m.tool_calls]
-                                    # Log: LLM decidió invocar herramientas
-                                    for tc in m.tool_calls:
-                                        label = TOOL_LABELS.get(tc['name'], f"Ejecutando {tc['name']}...")
-                                        status.update(label=label)
+                                    tool_names = [tc['name'] for tc in tool_calls]
+                                    st.session_state.log_history.append({
+                                        "type": "llm_decision",
+                                        "title": f"LLM — Razonamiento (turno {llm_round})",
+                                        "content": f"El modelo analizó el contexto y decidió invocar: <strong>{', '.join(tool_names)}</strong>",
+                                        "details": json.dumps({
+                                            "modelo": "llama-3.1-8b-instant",
+                                            "proveedor": "Groq",
+                                            "patron": "ReAct (Reasoning + Acting)",
+                                            "turno_de_razonamiento": llm_round,
+                                            "herramientas_elegidas": tool_names
+                                        }, indent=2, ensure_ascii=False)
+                                    })
+                                    for tc in tool_calls:
+                                        lbl = TOOL_LABELS.get(tc['name'], f"Ejecutando {tc['name']}...")
+                                        status.update(label=lbl)
+                                        st.session_state.log_history.append({
+                                            "type": "tool_call",
+                                            "title": f"Tool invocada: {tc['name']}",
+                                            "content": TOOL_DESCRIPTIONS.get(tc['name'], tc['name']),
+                                            "details": json.dumps(tc['args'], indent=2, ensure_ascii=False)
+                                        })
                                 else:
                                     final_response = m.content
                                     status.update(label="Redactando respuesta...", state="running")
+                                    st.session_state.log_history.append({
+                                        "type": "llm_response",
+                                        "title": "LLM — Respuesta Final",
+                                        "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
+                                        "details": m.content
+                                    })
 
-                            elif isinstance(m, ToolMessage):
+                            elif m_type == "tool":
                                 status.update(label="Procesando resultado...")
+                                char_count = len(m.content)
+                                st.session_state.log_history.append({
+                                    "type": "tool_response",
+                                    "title": f"Resultado de: {getattr(m, 'name', '')}",
+                                    "content": f"La herramienta retornó <strong>{char_count} caracteres</strong> de datos al agente.",
+                                    "details": m.content[:4000]
+                                })
 
                 status.update(label="Respuesta lista", state="complete", expanded=False)
+
+            # Guardar traza de esta interacción
+            st.session_state.traces.append(list(st.session_state.log_history))
 
             # Mostrar la respuesta final
             if final_response:
                 response_placeholder.markdown(final_response)
 
-            # Guardar sesión
+            # Guardar sesión a disco
             save_session(
                 st.session_state.current_session_id,
                 st.session_state.session_name,
                 serialize_messages(st.session_state.chat_history),
+                st.session_state.log_history,
                 get_user_profile()
             )
 

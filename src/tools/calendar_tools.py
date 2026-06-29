@@ -1,4 +1,3 @@
-# src/tools/calendar_tools.py
 import os
 import json
 import datetime
@@ -9,9 +8,32 @@ from googleapiclient.discovery import build
 
 SCOPES = ['https://www.googleapis.com/auth/calendar']
 
+# Palabras clave que indican una acción relacionada con despliegues a entornos productivos o de integración
+DEPLOY_KEYWORDS = ["despliegue", "deploy", "release", "producción", "production", "staging", "hotfix", "base de datos"]
+
+def _is_deploy_related(text: str) -> bool:
+    """Retorna True si el texto contiene palabras clave asociadas a despliegues."""
+    text_lower = text.lower()
+    return any(kw in text_lower for kw in DEPLOY_KEYWORDS)
+
+def _violates_deploy_policy(start_time_iso: str) -> str | None:
+    """Valida la fecha de inicio según la Sección 8 del Manual de Onboarding.
+    - Días autorizados: Martes (1) y Jueves (3).
+    - Horario autorizado: Entre las 10:00 y las 16:00 hs (hora local).
+    Retorna el mensaje de error si se viola la política, de lo contrario None."""
+    try:
+        dt = datetime.datetime.fromisoformat(start_time_iso)
+        # weekday(): Lunes es 0, Martes es 1, Miércoles es 2, Jueves es 3, Viernes es 4, Sábado es 5, Domingo es 6
+        if dt.weekday() not in (1, 3):
+            return "los despliegues a producción solo pueden realizarse los días martes y jueves"
+        if not (10 <= dt.hour < 16):
+            return "los despliegues a producción solo pueden realizarse en la ventana horaria de 10:00 a 16:00 hs"
+        return None
+    except Exception as e:
+        return None
+
 def get_calendar_service():
-    """Función auxiliar para autenticar la API silenciosamente con token.json.
-    Incluye lógica de refresco automático del token cuando expira."""
+    """Función auxiliar para autenticar la API silenciosamente con token.json."""
     creds = None
     if os.path.exists('token.json'):
         creds = Credentials.from_authorized_user_file('token.json', SCOPES)
@@ -19,27 +41,24 @@ def get_calendar_service():
     if not creds:
         raise Exception("Falta token.json. Ejecutá auth.py primero para autenticar la app.")
 
-    # Si el token expiró pero hay refresh_token, renovarlo automáticamente
     if not creds.valid:
         if creds.expired and creds.refresh_token:
             try:
                 creds.refresh(Request())
-                # Guardar el token renovado a disco
                 with open('token.json', 'w') as f:
                     f.write(creds.to_json())
             except Exception as e:
-                raise Exception(f"No se pudo renovar el token de Google. Re-autenticá con auth.py. Error: {e}")
+                raise Exception(f"No se pudo renovar el token de Google. Error: {e}")
         else:
             raise Exception("Token inválido o expirado. Ejecutá auth.py para re-autenticar.")
 
-    return build('calendar', 'v3', credentials=creds)
+    return build('calendar', 'v3', credentials=creds, cache_discovery=False)
 
 
 @tool
 def get_calendar_events(start_time: str, end_time: str) -> str:
     """Obligatorio usar esta herramienta para revisar la disponibilidad del calendario.
-    Input start_time y end_time DEBEN estar en formato ISO 8601 (ej. 2026-06-15T09:00:00-03:00).
-    También retorna el ID de cada evento, útil para eliminar o modificar luego."""
+    Input start_time y end_time DEBEN estar en formato ISO 8601."""
     try:
         service = get_calendar_service()
 
@@ -73,9 +92,22 @@ def get_calendar_events(start_time: str, end_time: str) -> str:
 
 @tool
 def insert_calendar_event(title: str, start_time: str, end_time: str, description: str) -> str:
-    """Registra el evento en Google Calendar si no hay superposiciones.
+    """Registra el evento en Google Calendar si no hay superposiciones y cumple con las políticas de la empresa.
     start_time y end_time en formato ISO 8601 (ej. 2026-06-15T09:00:00-03:00)."""
     try:
+        # ──────────────────────────────────────────────────────────────────────
+        # BUG #2 FIX: GUARDRAIL DETERMINÍSTICO DE NEGOCIO (DEFENSA EN PROFUNDIDAD)
+        # ──────────────────────────────────────────────────────────────────────
+        if _is_deploy_related(f"{title} {description}"):
+            violation = _violates_deploy_policy(start_time)
+            if violation:
+                return (
+                    f"⛔ SOLICITUD RECHAZADA POR SISTEMA: No se puede agendar el evento de despliegue. "
+                    f"Motivo: {violation} (Política de Seguridad Operativa, Sección 8 del Manual). "
+                    f"Se requiere aprobación formal del Tech Lead y reagendar la actividad obligatoriamente "
+                    f"los martes o jueves entre las 10:00 y las 16:00 hs."
+                )
+
         service = get_calendar_service()
 
         # Verificar superposición primero (overlapping)
@@ -116,13 +148,11 @@ def insert_calendar_event(title: str, start_time: str, end_time: str, descriptio
 @tool
 def delete_calendar_event(event_title: str, date: str) -> str:
     """Elimina un evento del calendario buscándolo por nombre y fecha.
-    - event_title: Nombre (o parte del nombre) del evento a eliminar.
-    - date: Fecha del evento en formato AAAA-MM-DD.
-    Si hay múltiples coincidencias, lista los eventos encontrados y pide confirmación."""
+    - event_title: Nombre del evento a eliminar.
+    - date: Fecha del evento (AAAA-MM-DD)."""
     try:
         service = get_calendar_service()
 
-        # Buscar en todo el día indicado
         if 'T' in date:
             date = date.split('T')[0]
 
@@ -143,7 +173,6 @@ def delete_calendar_event(event_title: str, date: str) -> str:
         if not events:
             return f"No se encontraron eventos para el {date}. No hay nada que eliminar."
 
-        # Filtrar por título (búsqueda parcial, case-insensitive)
         matches = [
             e for e in events
             if event_title.lower() in e.get('summary', '').lower()
@@ -166,7 +195,6 @@ def delete_calendar_event(event_title: str, date: str) -> str:
                 f"Por favor especificá cuál eliminar:\n" + "\n".join(options)
             )
 
-        # Exactamente 1 coincidencia — eliminar
         event_to_delete = matches[0]
         event_id = event_to_delete['id']
         event_name = event_to_delete.get('summary', 'Sin título')
@@ -189,14 +217,17 @@ def update_calendar_event(
     new_description: str = ""
 ) -> str:
     """Modifica un evento existente en el calendario. Buscá el evento por nombre y fecha,
-    luego actualizá solo los campos que el usuario quiere cambiar.
-    - event_title: Nombre actual del evento a modificar.
-    - date: Fecha actual del evento (AAAA-MM-DD).
-    - new_title: Nuevo nombre (dejar vacío para no cambiar).
-    - new_start_time: Nueva hora de inicio en ISO 8601 (dejar vacío para no cambiar).
-    - new_end_time: Nueva hora de fin en ISO 8601 (dejar vacío para no cambiar).
-    - new_description: Nueva descripción (dejar vacío para no cambiar)."""
+    luego actualizá solo los campos que el usuario quiere cambiar."""
     try:
+        # Validar guardrail determinístico en caso de modificación
+        if new_start_time and _is_deploy_related(f"{new_title} {new_description} {event_title}"):
+            violation = _violates_deploy_policy(new_start_time)
+            if violation:
+                return (
+                    f"⛔ SOLICITUD RECHAZADA POR SISTEMA: No se puede modificar el evento al horario solicitado. "
+                    f"Motivo: {violation} (Política de Seguridad Operativa, Sección 8 del Manual)."
+                )
+
         service = get_calendar_service()
 
         if 'T' in date:
@@ -219,7 +250,6 @@ def update_calendar_event(
         if not events:
             return f"No se encontraron eventos para el {date}."
 
-        # Filtrar por título
         matches = [
             e for e in events
             if event_title.lower() in e.get('summary', '').lower()
@@ -242,11 +272,9 @@ def update_calendar_event(
                 f"Por favor especificá mejor cuál modificar:\n" + "\n".join(options)
             )
 
-        # Exactamente 1 coincidencia — modificar
         event = matches[0]
         event_id = event['id']
 
-        # Aplicar cambios solo a los campos no vacíos
         if new_title:
             event['summary'] = new_title
         if new_description:
@@ -281,7 +309,6 @@ def find_available_slots(date: str, duration_minutes: int) -> str:
     """Analiza la agenda para una fecha determinada (formato AAAA-MM-DD) y devuelve las franjas horarias libres
     dentro del horario laboral (09:00 a 18:00, GTM-3) con la duración mínima especificada (en minutos)."""
     try:
-        # Extraer solo la fecha AAAA-MM-DD
         if 'T' in date:
             date = date.split('T')[0]
 

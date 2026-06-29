@@ -1,0 +1,237 @@
+{
+  "id": "022de7fce8",
+  "name": "\"¿Cuál es la misión y visión de la empre...",
+  "created_at": "2026-06-28T20:45:12.111320",
+  "updated_at": "2026-06-28T20:47:30.709273",
+  "chat_history": [
+    {
+      "type": "human",
+      "content": "\"¿Cuál es la misión y visión de la empresa?\""
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "misión y visión de la empresa"
+          },
+          "id": "jg83a1kbq"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno).",
+      "name": "query_company_knowledge",
+      "tool_call_id": "jg83a1kbq"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "misión y visión de la empresa corporativa"
+          },
+          "id": "qqz82c9xe"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno).",
+      "name": "query_company_knowledge",
+      "tool_call_id": "qqz82c9xe"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "misión y visión de la empresa en general"
+          },
+          "id": "852hw75nx"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno).",
+      "name": "query_company_knowledge",
+      "tool_call_id": "852hw75nx"
+    },
+    {
+      "type": "ai",
+      "content": "Lo siento, pero no puedo continuar con la búsqueda. ¿Puedo ayudarte con algo más?",
+      "tool_calls": []
+    },
+    {
+      "type": "human",
+      "content": "\"¿Qué beneficios de cobertura médica me ofrece la empresa?\""
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "beneficios de cobertura médica corporativos"
+          },
+          "id": "mdxpc980m"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno).",
+      "name": "query_company_knowledge",
+      "tool_call_id": "mdxpc980m"
+    },
+    {
+      "type": "ai",
+      "content": "",
+      "tool_calls": [
+        {
+          "name": "query_company_knowledge",
+          "args": {
+            "query": "cobertura médica para empleados"
+          },
+          "id": "tm5h7p0hh"
+        }
+      ]
+    },
+    {
+      "type": "tool",
+      "content": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno).",
+      "name": "query_company_knowledge",
+      "tool_call_id": "tm5h7p0hh"
+    }
+  ],
+  "log_history": [
+    {
+      "type": "user_input",
+      "title": "Consulta del Usuario",
+      "content": "Mensaje recibido y enviado al agente.",
+      "details": "\"¿Qué beneficios de cobertura médica me ofrece la empresa?\""
+    },
+    {
+      "type": "llm_decision",
+      "title": "LLM — Razonamiento (turno 1)",
+      "content": "El modelo analizó el contexto y decidió invocar: <strong>query_company_knowledge</strong>",
+      "details": "{\n  \"modelo\": \"llama-3.1-8b-instant\",\n  \"proveedor\": \"Groq\",\n  \"patron\": \"ReAct (Reasoning + Acting)\",\n  \"turno_de_razonamiento\": 1,\n  \"herramientas_elegidas\": [\n    \"query_company_knowledge\"\n  ]\n}"
+    },
+    {
+      "type": "tool_call",
+      "title": "Tool invocada: query_company_knowledge",
+      "content": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
+      "details": "{\n  \"query\": \"beneficios de cobertura médica corporativos\"\n}"
+    },
+    {
+      "type": "tool_response",
+      "title": "Resultado de: query_company_knowledge",
+      "content": "La herramienta retornó <strong>145 caracteres</strong> de datos al agente.",
+      "details": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno)."
+    },
+    {
+      "type": "llm_decision",
+      "title": "LLM — Razonamiento (turno 2)",
+      "content": "El modelo analizó el contexto y decidió invocar: <strong>query_company_knowledge</strong>",
+      "details": "{\n  \"modelo\": \"llama-3.1-8b-instant\",\n  \"proveedor\": \"Groq\",\n  \"patron\": \"ReAct (Reasoning + Acting)\",\n  \"turno_de_razonamiento\": 2,\n  \"herramientas_elegidas\": [\n    \"query_company_knowledge\"\n  ]\n}"
+    },
+    {
+      "type": "tool_call",
+      "title": "Tool invocada: query_company_knowledge",
+      "content": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
+      "details": "{\n  \"query\": \"cobertura médica para empleados\"\n}"
+    },
+    {
+      "type": "tool_response",
+      "title": "Resultado de: query_company_knowledge",
+      "content": "La herramienta retornó <strong>145 caracteres</strong> de datos al agente.",
+      "details": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno)."
+    }
+  ],
+  "traces": [
+    [
+      {
+        "type": "user_input",
+        "title": "Consulta del Usuario",
+        "content": "Mensaje recibido y enviado al agente.",
+        "details": "\"¿Cuál es la misión y visión de la empresa?\""
+      },
+      {
+        "type": "llm_decision",
+        "title": "LLM — Razonamiento (turno 1)",
+        "content": "El modelo analizó el contexto y decidió invocar: <strong>query_company_knowledge</strong>",
+        "details": "{\n  \"modelo\": \"llama-3.1-8b-instant\",\n  \"proveedor\": \"Groq\",\n  \"patron\": \"ReAct (Reasoning + Acting)\",\n  \"turno_de_razonamiento\": 1,\n  \"herramientas_elegidas\": [\n    \"query_company_knowledge\"\n  ]\n}"
+      },
+      {
+        "type": "tool_call",
+        "title": "Tool invocada: query_company_knowledge",
+        "content": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
+        "details": "{\n  \"query\": \"misión y visión de la empresa\"\n}"
+      },
+      {
+        "type": "tool_response",
+        "title": "Resultado de: query_company_knowledge",
+        "content": "La herramienta retornó <strong>145 caracteres</strong> de datos al agente.",
+        "details": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno)."
+      },
+      {
+        "type": "llm_decision",
+        "title": "LLM — Razonamiento (turno 2)",
+        "content": "El modelo analizó el contexto y decidió invocar: <strong>query_company_knowledge</strong>",
+        "details": "{\n  \"modelo\": \"llama-3.1-8b-instant\",\n  \"proveedor\": \"Groq\",\n  \"patron\": \"ReAct (Reasoning + Acting)\",\n  \"turno_de_razonamiento\": 2,\n  \"herramientas_elegidas\": [\n    \"query_company_knowledge\"\n  ]\n}"
+      },
+      {
+        "type": "tool_call",
+        "title": "Tool invocada: query_company_knowledge",
+        "content": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
+        "details": "{\n  \"query\": \"misión y visión de la empresa corporativa\"\n}"
+      },
+      {
+        "type": "tool_response",
+        "title": "Resultado de: query_company_knowledge",
+        "content": "La herramienta retornó <strong>145 caracteres</strong> de datos al agente.",
+        "details": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno)."
+      },
+      {
+        "type": "llm_decision",
+        "title": "LLM — Razonamiento (turno 3)",
+        "content": "El modelo analizó el contexto y decidió invocar: <strong>query_company_knowledge</strong>",
+        "details": "{\n  \"modelo\": \"llama-3.1-8b-instant\",\n  \"proveedor\": \"Groq\",\n  \"patron\": \"ReAct (Reasoning + Acting)\",\n  \"turno_de_razonamiento\": 3,\n  \"herramientas_elegidas\": [\n    \"query_company_knowledge\"\n  ]\n}"
+      },
+      {
+        "type": "tool_call",
+        "title": "Tool invocada: query_company_knowledge",
+        "content": "Búsqueda semántica sobre la base vectorial ChromaDB usando embeddings multilingües normalizados. Recupera los fragmentos del manual más relevantes.",
+        "details": "{\n  \"query\": \"misión y visión de la empresa en general\"\n}"
+      },
+      {
+        "type": "tool_response",
+        "title": "Resultado de: query_company_knowledge",
+        "content": "La herramienta retornó <strong>145 caracteres</strong> de datos al agente.",
+        "details": "Se encontraron coincidencias semánticas en los manuales, pero ninguna supera el umbral de confianza mínimo del 45% de similitud (Métrica Coseno)."
+      },
+      {
+        "type": "llm_response",
+        "title": "LLM — Respuesta Final",
+        "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
+        "details": "Lo siento, pero no puedo continuar con la búsqueda. ¿Puedo ayudarte con algo más?"
+      }
+    ]
+  ],
+  "profile": {
+    "nombre": "Valentino",
+    "rol": "ayudante de infraestructura",
+    "seniority": "junior",
+    "horario_laboral": "8am-12pm, lunes, miércoles y viernes",
+    "preferencias": "comunicación por correo electrónico"
+  }
+}

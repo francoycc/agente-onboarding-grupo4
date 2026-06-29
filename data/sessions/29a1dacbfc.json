@@ -1,0 +1,54 @@
+{
+  "id": "29a1dacbfc",
+  "name": "Hola, buenas tardes. Acabo de entrar a l...",
+  "created_at": "2026-06-28T19:52:43.686056",
+  "updated_at": "2026-06-28T19:54:03.198695",
+  "chat_history": [
+    {
+      "type": "human",
+      "content": "Hola, buenas tardes. Acabo de entrar a la empresa como dev junior y me llamo Valentín."
+    },
+    {
+      "type": "ai",
+      "content": "¡Hola Valentín! Bienvenido a la empresa. Me alegra conocerte. Estoy aquí para ayudarte en tu proceso de onboarding y asegurarme de que tengas todo lo que necesitas para empezar a trabajar de manera efectiva.\n\nAntes de empezar, me gustaría saber un poco más sobre ti. ¿Cuál es tu rol dentro de la empresa? ¿Cuál es tu experiencia previa en desarrollo? ¿Qué te gustaría lograr en tu primer mes aquí?\n\nTambién me gustaría saber si tienes alguna pregunta o inquietud en particular que te gustaría discutir. Estoy aquí para ayudarte en lo que necesites.\n\n¿Puedes decirme un poco más sobre ti?",
+      "tool_calls": []
+    }
+  ],
+  "log_history": [
+    {
+      "type": "user_input",
+      "title": "Consulta del Usuario",
+      "content": "Mensaje recibido y enviado al agente.",
+      "details": "Hola, buenas tardes. Acabo de entrar a la empresa como dev junior y me llamo Valentín."
+    },
+    {
+      "type": "llm_response",
+      "title": "LLM — Respuesta Final",
+      "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
+      "details": "¡Hola Valentín! Bienvenido a la empresa. Me alegra conocerte. Estoy aquí para ayudarte en tu proceso de onboarding y asegurarme de que tengas todo lo que necesitas para empezar a trabajar de manera efectiva.\n\nAntes de empezar, me gustaría saber un poco más sobre ti. ¿Cuál es tu rol dentro de la empresa? ¿Cuál es tu experiencia previa en desarrollo? ¿Qué te gustaría lograr en tu primer mes aquí?\n\nTambién me gustaría saber si tienes alguna pregunta o inquietud en particular que te gustaría discutir. Estoy aquí para ayudarte en lo que necesites.\n\n¿Puedes decirme un poco más sobre ti?"
+    }
+  ],
+  "traces": [
+    [
+      {
+        "type": "user_input",
+        "title": "Consulta del Usuario",
+        "content": "Mensaje recibido y enviado al agente.",
+        "details": "Hola, buenas tardes. Acabo de entrar a la empresa como dev junior y me llamo Valentín."
+      },
+      {
+        "type": "llm_response",
+        "title": "LLM — Respuesta Final",
+        "content": "El modelo sintetizó toda la información recopilada y generó la respuesta al usuario.",
+        "details": "¡Hola Valentín! Bienvenido a la empresa. Me alegra conocerte. Estoy aquí para ayudarte en tu proceso de onboarding y asegurarme de que tengas todo lo que necesitas para empezar a trabajar de manera efectiva.\n\nAntes de empezar, me gustaría saber un poco más sobre ti. ¿Cuál es tu rol dentro de la empresa? ¿Cuál es tu experiencia previa en desarrollo? ¿Qué te gustaría lograr en tu primer mes aquí?\n\nTambién me gustaría saber si tienes alguna pregunta o inquietud en particular que te gustaría discutir. Estoy aquí para ayudarte en lo que necesites.\n\n¿Puedes decirme un poco más sobre ti?"
+      }
+    ]
+  ],
+  "profile": {
+    "nombre": "Valentino",
+    "rol": "ayudante de infraestructura",
+    "seniority": "junior",
+    "horario_laboral": "8am-12pm, lunes, miércoles y viernes",
+    "preferencias": "comunicación por correo electrónico"
+  }
+}
