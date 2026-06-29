@@ -73,7 +73,7 @@ tools = [
 ]
 
 # Inicialización de Llama 3.3 70B para estabilidad de control ReAct y prevención de Token Limits (TPM)
-llm = ChatGroq(model="llama-3.3-70b-versatile", temperature=0)
+llm = ChatGroq(model="openai/gpt-oss-120b", temperature=0.1)
 llm_with_tools = llm.bind_tools(tools)
 
 def _invoke_with_retry(messages: list, max_retries: int = 3) -> AnyMessage:

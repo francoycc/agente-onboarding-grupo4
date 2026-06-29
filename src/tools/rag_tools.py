@@ -33,48 +33,36 @@ def _get_chroma_db():
         
     return _CHROMA_DB
 
-
 @tool
 def query_company_knowledge(query: str) -> str:
-    """Busca en los manuales de la empresa, políticas de RRHH, procesos de desarrollo, herramientas y rutas de aprendizaje. 
-    Input: una frase de búsqueda clara en español sobre lo que el empleado necesita saber."""
+    """Busca en los manuales de la empresa, políticas de RRHH y rutas de aprendizaje.
+    Input: una frase de búsqueda clara sobre lo que el empleado necesita saber.
+    Regla: Si encuentras múltiples tareas, devuélvelas todas explícitamente."""
     try:
-        db = _get_chroma_db()
+        # 1. Configuración persistente (Ruta absoluta)
+        base_dir = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+        persist_directory = os.path.join(base_dir, "chroma_db")
+        embeddings = HuggingFaceEmbeddings(model_name="paraphrase-multilingual-MiniLM-L12-v2")
+        db = Chroma(persist_directory=persist_directory, embedding_function=embeddings)
         
-        # Buscamos los 5 fragmentos lógicos más cercanos vectorialmente
+        # 2. Búsqueda con relevancia
         results = db.similarity_search_with_relevance_scores(query, k=5)
         
         if not results:
-            return "No se encontró información relevante en los manuales corporativos."
-        
-        # ──────────────────────────────────────────────────────────────────────
-        # CALIBRACIÓN DE UMBRAL (MÉTRICA COSENO)
-        # Ajustamos el umbral a 35% (0.35) para evitar falsos negativos en frases 
-        # conceptuales cortas (misión, visión, beneficios) sin dejar entrar ruido.
-        # ──────────────────────────────────────────────────────────────────────
+            return "CONTEXTO_NO_ENCONTRADO: No existe información en el manual para esa consulta."
+
+        # 3. Filtrado por Umbral (Threshold)
         threshold = 0.35
+        filtered_docs = [doc for doc, score in results if score >= threshold]
         
-        formatted_docs = []
-        for idx, (doc, score) in enumerate(results, start=1):
-            if score < threshold:
-                continue
-                
-            source_path = doc.metadata.get("source", "manual_onboarding.txt")
-            source_file = os.path.basename(source_path)
-            
-            formatted_docs.append(
-                f"[Fragmento {idx}] (Fuente: {source_file} | Relevancia: {score:.2%})\n"
-                f"Contenido: {doc.page_content.strip()}"
-            )
-            
-        if not formatted_docs:
-            return (
-                f"Se encontraron coincidencias semánticas en los manuales, pero ninguna supera "
-                f"el umbral de confianza mínimo del {threshold:.0%} de similitud (Métrica Coseno)."
-            )
-            
-        context = "\n\n".join(formatted_docs)
-        return f"Información recuperada de la base de conocimiento corporativa:\n\n{context}"
+        if not filtered_docs:
+            return f"Se encontraron coincidencias, pero ninguna supera el umbral de confianza ({threshold})."
+
+        # 4. Formateo con la nueva instrucción de "Planificación Voraz"
+        # Aquí forzamos al modelo a ver cada ítem como una tarea individual obligatoria
+        context = "\n\n".join([f"- TAREA OBLIGATORIA: {doc.page_content.strip()}" for doc in filtered_docs])
+        
+        return f"DATOS_DEL_MANUAL:\n{context}\n\nREGLA: Usa solo estos datos para responder. No añadas información externa."
         
     except Exception as e:
         return f"Error al consultar la base de conocimiento: {str(e)}"
