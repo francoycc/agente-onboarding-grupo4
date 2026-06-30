@@ -75,7 +75,7 @@ SEMANA 4 – Evaluación de ingreso:
 SEMANA 1 – Inducción acelerada:
 - Día 1: Revisión del Código de Conducta y Políticas de Seguridad.
 - Día 1: Setup del entorno de desarrollo y acceso a repositorios (Git, CI/CD pipelines).
-- Día 2: Reunión con Tech Lead: revisión de arquitectura del sistema actual y deuda técnica.
+- Día 1: Reunión con Tech Lead: revisión de arquitectura del sistema actual y deuda técnica.
 - Día 3: Primer ticket de mediana complejidad asignado en Jira.
 - Día 4: Revisión de documentación técnica en Confluence (ADRs: Architecture Decision Records).
 
