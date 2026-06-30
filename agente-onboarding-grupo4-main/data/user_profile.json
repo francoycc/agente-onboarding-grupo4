@@ -1,0 +1,10 @@
+{
+  "nombre": "Valentino",
+  "rol": "Desarrollador",
+  "seniority": "Junior",
+  "horario_laboral": "9:00-14:00",
+  "preferencias": {
+    "ubicacion": "oficina",
+    "comunicacion": "mail"
+  }
+}

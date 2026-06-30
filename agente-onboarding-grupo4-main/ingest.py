@@ -22,8 +22,8 @@ def ingest_knowledge():
     docs = loader.load()
     logging.info(f"Documento cargado. Longitud: {len(docs[0].page_content)} caracteres.")
 
-    # 2. Dividir en fragmentos (Chunks)
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=500, chunk_overlap=50)
+    # 2. Dividir en fragmentos (Chunks) - Aumentado para no cortar los beneficios por la mitad
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=150)
     splits = text_splitter.split_documents(docs)
     logging.info(f"Documento dividido en {len(splits)} fragmentos.")
 

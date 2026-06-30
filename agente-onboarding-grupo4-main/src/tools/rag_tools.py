@@ -17,19 +17,33 @@ def _get_db():
 
 @tool
 def query_company_knowledge(query: str) -> str:
-    """Busca en los manuales de la empresa, políticas de RRHH y rutas de aprendizaje. 
-    Input: una frase de búsqueda clara sobre lo que el empleado necesita saber."""
+    """Busca en el manual oficial de la empresa. Retorna el texto EXACTO del manual.
+    IMPORTANTE: El agente SOLO puede usar la información dentro de los delimitadores [INICIO_MANUAL] y [FIN_MANUAL].
+    Input: palabras clave cortas (ej: 'beneficios', 'estructura', 'horario')."""
     try:
         db = _get_db()
-        
-        # Aumentamos k a 4 para obtener mayor contexto
-        docs = db.similarity_search(query, k=4)
-        
+
+        # MMR garantiza diversidad: evita que todos los chunks hablen del mismo tema
+        docs = db.max_marginal_relevance_search(query, k=4, fetch_k=15)
+
         if not docs:
-            return "No se encontró información relevante en los manuales."
-        
-        context = "\n\n".join([doc.page_content for doc in docs])
-        return f"Información recuperada de los manuales:\n{context}"
+            return (
+                "[INICIO_MANUAL]\n"
+                "No se encontró información sobre este tema en el manual oficial.\n"
+                "[FIN_MANUAL]"
+            )
+
+        chunks = []
+        for i, doc in enumerate(docs, 1):
+            chunks.append(f"--- Fragmento {i} del Manual ---\n{doc.page_content}")
+
+        context = "\n\n".join(chunks)
+        return (
+            f"[INICIO_MANUAL]\n"
+            f"{context}\n"
+            f"[FIN_MANUAL]\n"
+            f"INSTRUCCIÓN: Responde usando ÚNICAMENTE el texto anterior. No agregues información propia."
+        )
     except Exception as e:
         return f"Error al consultar la base de conocimiento: {str(e)}"
 

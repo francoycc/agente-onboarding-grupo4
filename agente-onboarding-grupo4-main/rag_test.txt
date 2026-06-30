@@ -1,0 +1,93 @@
+===============================================================
+SECCIÓN 2: ESTRUCTURA DE LA EMPRESA
+===============================================================
+
+DEPARTAMENTOS PRINCIPALES:
+- Engineering: Responsable del desarrollo de productos. Se divide en squads por producto (Squad Alpha, Beta, Gamma).
+- Product: Gestión de roadmap, priorización y definición de funcionalidades.
+- Data & AI: Equipo de ciencia de datos, machine learning e inteligencia artificial.
+- DevOps & Infraestructura: Gestión de servidores, CI/CD, cloud (AWS y GCP).
+- QA (Quality Assurance): Testing manual y automatizado de todos los productos.
+- RRHH & People: Cultura, selección, bienestar y desarrollo profesional.
+- Legal & Compliance: Marco regulatorio, contratos y protección de datos.
+- Finanzas: Presupuestos, contabilidad y pagos a proveedores.
+
+JERARQUÍA EN ENGINEERING:
+- Junior Developer: Ejecuta tareas definidas, bajo supervisión de seniors.
+- Semi-Senior Developer: Trabaja con autonomía en módulos propios, participa en code reviews.
+- Senior Developer: Diseña soluciones, lidera técnicamente, hace mentoring.
+- Tech Lead: Responsable técnico del squad. Define arquitectura y estándares.
+- Engineering Manager: Gestión de personas y estrategia del área.
+
+===============================================================
+SECCIÓN 3: PLAN DE ONBOARDING POR SENIORITY
+===============================================================
+
+--- PERFIL JUNIOR (Semanas 1 a 4) ---
+---
+MANUAL DE ONBOARDING CORPORATIVO — TECNOLOGÍA & INNOVACIÓN S.A.
+Versión 3.1 | Recursos Humanos | Actualizado: Junio 2026
+
+===============================================================
+SECCIÓN 1: BIENVENIDA Y CULTURA ORGANIZACIONAL
+===============================================================
+
+Bienvenido al equipo de Tecnología & Innovación S.A. Este manual está diseñado para guiarte durante tus primeras semanas en la empresa. Nuestro objetivo es que te integres de forma exitosa, conozcas nuestros procesos y comiences a contribuir con confianza.
+
+MISIÓN: Desarrollar soluciones tecnológicas de impacto que transformen la industria, con foco en la calidad, la innovación continua y el bienestar de las personas.
+
+VISIÓN: Ser la empresa de tecnología referente de Latinoamérica para 2030, reconocida por su cultura de aprendizaje y excelencia técnica.
+
+VALORES CORPORATIVOS:
+- Colaboración: Creemos que los mejores resultados se logran en equipo. Trabajamos en conjunto y compartimos conocimiento.
+- Excelencia técnica: Nos enorgullecemos de la calidad de nuestro código y nuestras soluciones.
+- Aprendizaje continuo: Todos los empleados tienen asignado un presupuesto anual de capacitación de USD 500.
+- Transparencia: La comunicación abierta es fundamental. Se fomenta dar y recibir feedback de manera constructiva.
+- Diversidad e inclusión: Valoramos la diversidad de perfiles, géneros y culturas. Tenemos una política de tolerancia cero ante cualquier forma de discriminación.
+---
+SEMANA 3 – Evaluación y objetivos:
+- Reunión de feedback con Tech Lead y RRHH.
+- Definición de OKRs y mapa de carrera.
+
+--- PERFIL SENIOR (Semana 1) ---
+
+- Día 1: Reunión con Engineering Manager: visión estratégica del área y expectativas del rol.
+- Día 2: Reunión con Tech Leads de todos los squads: estado técnico de los proyectos.
+- Día 3: Revisión profunda de arquitectura (microservicios, APIs, base de datos).
+- Día 4: Asignación de primer tarea de alto impacto o liderazgo técnico de iniciativa.
+- Día 5: Definición de OKRs y áreas de mejora que el Senior liderará.
+
+===============================================================
+SECCIÓN 4: HERRAMIENTAS Y SISTEMAS INTERNOS
+===============================================================
+
+COMUNICACIÓN:
+- Slack: Herramienta principal de comunicación interna. Canal general: #general. Canal de tu squad: #squad-[nombre]. Canal de ayuda técnica: #tech-help.
+- Email corporativo (Gmail): Para comunicaciones formales y con externos.
+- Google Meet: Para videollamadas internas y con clientes.
+
+GESTIÓN DE PROYECTOS:
+- Jira: Gestión de tickets, sprints y tablero Kanban. Acceso en: jira.techinnova.com.ar
+- Confluence: Documentación interna, guías técnicas, runbooks y ADRs. Acceso en: confluence.techinnova.com.ar
+---
+--- PERFIL JUNIOR (Semanas 1 a 4) ---
+
+SEMANA 1 – Inducción y herramientas:
+- Día 1: Completar el Curso de Git (2 horas). Disponible en la plataforma interna de e-learning (Moodle corporativo). El curso cubre: ramas, commits, pull requests y resolución de conflictos.
+- Día 1: Configuración del entorno de desarrollo local (guía en Confluence: "Setup Dev Environment").
+- Día 2: Leer el Código de Conducta completo (PDF en Google Drive compartido de RRHH).
+- Día 2: Leer la Política de Seguridad de la Información (clasificación de datos, manejo de credenciales, uso de VPN).
+- Día 3: Reunión de bienvenida con el Tech Lead de su squad (30 min). Se presenta el proyecto actual y el roadmap del trimestre.
+- Día 4: Completar el curso de "Introducción a la Metodología Ágil Scrum" (1.5 horas, Moodle).
+- Día 5: Primera Daily Standup en el squad. Presentación ante el equipo.
+
+SEMANA 2 – Primeras tareas:
+- Primer ticket asignado: siempre será una tarea de tipo "good first issue" etiquetada en Jira.
+- Asistir a la Retrospectiva del Sprint (si cae en esa semana).
+- Participar como observador en la Planning del próximo Sprint.
+- Reunión 1:1 con mentor asignado (cada Junior tiene un Senior como buddy).
+
+SEMANA 3 – Integración técnica:
+- Completar el curso de "Docker y Contenedores Básico" (2 horas, Moodle).
+- Primer code review a cargo: el Junior revisa el código de otro Junior con guía del mentor.
+- Presentación de avances a Tech Lead.

@@ -1,0 +1,43 @@
+VISIÓN: Ser la empresa de tecnología referente de Latinoamérica para 2030, reconocida por su cultura de aprendizaje y excelencia técnica.
+
+VALORES CORPORATIVOS:
+- Colaboración: Creemos que los mejores resultados se logran en equipo. Trabajamos en conjunto y compartimos conocimiento.
+- Excelencia técnica: Nos enorgullecemos de la calidad de nuestro código y nuestras soluciones.
+- Aprendizaje continuo: Todos los empleados tienen asignado un presupuesto anual de capacitación de USD 500.
+- Transparencia: La comunicación abierta es fundamental. Se fomenta dar y recibir feedback de manera constructiva.
+- Diversidad e inclusión: Valoramos la diversidad de perfiles, géneros y culturas. Tenemos una política de tolerancia cero ante cualquier forma de discriminación.
+---
+BENEFICIOS:
+- Cobertura médica: Prepaga OSDE 410 bonificada al 70% para el empleado y al 50% para grupo familiar.
+- Bono anual: Hasta el 15% del salario anual, sujeto a evaluación de desempeño.
+- Home office equipment: Los nuevos empleados reciben laptop corporativa (MacBook Pro o ThinkPad según preferencia), monitor externo, teclado y mouse.
+- Presupuesto de capacitación: USD 500 anuales para cursos, libros, certificaciones o conferencias.
+- Plataforma de bienestar: Acceso gratuito a Calm (meditación) y Gympass (gimnasio).
+- Stock options: A partir del nivel Senior, se accede al plan de ESOP con vesting a 4 años.
+
+SALARIOS Y PAGOS:
+- Los salarios se pagan el último día hábil del mes.
+- Los aumentos se revisan en forma semestral (enero y julio).
+---
+===============================================================
+SECCIÓN 9: GESTIÓN DE CARRERA Y DESARROLLO PROFESIONAL
+===============================================================
+
+EVALUACIONES DE DESEMPEÑO:
+- Se realizan de forma semestral: en junio y en diciembre.
+- Incluyen: autoevaluación, evaluación del manager, evaluación de pares (360°).
+- Los resultados impactan directamente en el bono anual y en las posibilidades de promoción.
+
+CRITERIOS DE PROMOCIÓN:
+Junior → Semi-Senior:
+- Mínimo 12 meses en el rol.
+- Demostrar autonomía técnica en al menos un módulo.
+- Haber completado al menos 3 cursos de capacitación en la plataforma.
+- Evaluación de desempeño promedio mayor a 4.0/5.0.
+---
+P: ¿Cómo funciona el programa de buddy/mentor?
+R: Cada nuevo empleado recibe un buddy (par) y un mentor (senior). El buddy te ayuda con el día a día (dónde está la cocina, cómo se usa Jira). El mentor te guía en tu desarrollo técnico y profesional. Las reuniones de mentoring son quincenales, mínimo.
+
+===============================================================
+FIN DEL MANUAL DE ONBOARDING
+===============================================================

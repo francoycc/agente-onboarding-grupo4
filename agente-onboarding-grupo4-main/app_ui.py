@@ -9,7 +9,7 @@ from src.core.agent import app
 from langchain_core.messages import HumanMessage, AIMessage, ToolMessage
 
 # Configurar variables de entorno y Logger
-load_dotenv()
+load_dotenv(override=True)
 logging.basicConfig(level=logging.INFO)
 
 # ──────────────────────────────────────────────
