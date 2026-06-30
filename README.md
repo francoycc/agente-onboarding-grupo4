@@ -2,6 +2,10 @@
 
 Trabajo Práctico N° 2 - Inteligencia Artificial (UTN FRSF 2026)  
 **Grupo 4**
+Mateo Gabriel Blanche - mateoblanche5@gmail.com
+José Carlos Cammisi - joseccammisi@gmail.com
+Valentino Delarmelina - valentinodelarmelina@outlook.com
+Franco Yucci - francoycc@gmail.com
 
 ---
 
